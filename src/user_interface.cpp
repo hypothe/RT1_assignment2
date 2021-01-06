@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "nonholo_control/UIMenu.h"
-#include "map_library/map_library.h"
+#include "nonholo_control/map_library.h"
 
 std::string plan_algo_used;
 std::map<std::string, int> plan_algo_map;

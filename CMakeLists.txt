@@ -113,7 +113,7 @@ add_service_files(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES map_library
+  LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS final_assignment geometry_msgs message_generation nav_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
@@ -131,9 +131,9 @@ include_directories(
 
 ## Declare a C++ library
 add_library(
-  map_library src/map_library.cpp
+  ${PROJECT_NAME} src/map_library.cpp
 )
-target_link_libraries(map_library ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -171,16 +171,16 @@ add_dependencies(${PROJECT_NAME}_unreachable_target_detection ${${PROJECT_NAME}_
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_user_interface
-   ${catkin_LIBRARIES}
+   ${PROJECT_NAME}
 )
 target_link_libraries(${PROJECT_NAME}_user_interface
-   map_library
-)
-target_link_libraries(${PROJECT_NAME}_robot_mainframe
    ${catkin_LIBRARIES}
 )
 target_link_libraries(${PROJECT_NAME}_robot_mainframe
-   map_library
+   ${PROJECT_NAME}
+)
+target_link_libraries(${PROJECT_NAME}_robot_mainframe
+   ${catkin_LIBRARIES}
 )
 target_link_libraries(${PROJECT_NAME}_random_position_server
    ${catkin_LIBRARIES}
@@ -216,14 +216,14 @@ target_link_libraries(${PROJECT_NAME}_unreachable_target_detection
 # )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS map_library
+install(TARGETS ${PROJECT_NAME}
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark cpp header files for installation
-install(DIRECTORY include/map_library/
+install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
    FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
