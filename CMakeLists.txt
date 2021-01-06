@@ -64,6 +64,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
+   UIMenu.srv
    TargetPos.srv
 #   Service2.srv
 )
@@ -111,9 +112,9 @@ add_service_files(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES nonholo_control
-#  CATKIN_DEPENDS final_assignment geometry_msgs message_generation nav_msgs roscpp rospy std_msgs
+  INCLUDE_DIRS include
+  LIBRARIES map_library
+  CATKIN_DEPENDS final_assignment geometry_msgs message_generation nav_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -124,14 +125,15 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/nonholo_control.cpp
-# )
+add_library(
+  map_library src/map_library.cpp
+)
+target_link_libraries(map_library ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -142,6 +144,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME}_user_interface src/user_interface.cpp)
+add_executable(${PROJECT_NAME}_robot_mainframe src/robot_mainframe.cpp)
 add_executable(${PROJECT_NAME}_random_position_server src/random_position_server.cpp)
 add_executable(${PROJECT_NAME}_user_position_server src/user_position_server.cpp)
 add_executable(${PROJECT_NAME}_redirect_server src/redirect_server.cpp)
@@ -158,6 +161,7 @@ add_executable(${PROJECT_NAME}_unreachable_target_detection src/unreachable_targ
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(${PROJECT_NAME}_user_interface ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(${PROJECT_NAME}_robot_mainframe ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_random_position_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_user_position_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_redirect_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -168,6 +172,15 @@ add_dependencies(${PROJECT_NAME}_unreachable_target_detection ${${PROJECT_NAME}_
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_user_interface
    ${catkin_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_user_interface
+   map_library
+)
+target_link_libraries(${PROJECT_NAME}_robot_mainframe
+   ${catkin_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_robot_mainframe
+   map_library
 )
 target_link_libraries(${PROJECT_NAME}_random_position_server
    ${catkin_LIBRARIES}
@@ -203,18 +216,18 @@ target_link_libraries(${PROJECT_NAME}_unreachable_target_detection
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS map_library
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
+install(DIRECTORY include/map_library/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
-# )
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

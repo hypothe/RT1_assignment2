@@ -8,7 +8,7 @@
 
     <!--node name="$(arg PROJECT_NAME)_redirect_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_redirect_server" /-->
     
-    <!--node name="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" pkg="nonholo_control" type="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" /-->
+    <node name="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" pkg="nonholo_control" type="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" />
 
     <node name="mux_cmdvel" pkg="topic_tools" type="mux" args="cmd_vel cmd_vel_move cmd_vel_bug cmd_vel_stop mux:=mux_cmdvel"/>
     
@@ -58,7 +58,8 @@
     <node name="$(arg PROJECT_NAME)_random_position_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_random_position_server" 
 	      args="$(arg avoid_duplicates)"/>
 	<node name="$(arg PROJECT_NAME)_user_position_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_user_position_server" output="screen"/>
-	<node name="$(arg PROJECT_NAME)_user_interface" pkg="nonholo_control" type="$(arg PROJECT_NAME)_user_interface" required="true" output="screen">
+	<!--node name="$(arg PROJECT_NAME)_user_interface" pkg="nonholo_control" type="$(arg PROJECT_NAME)_user_interface" required="true" output="screen"/-->
+	<node name="$(arg PROJECT_NAME)_robot_mainframe" pkg="nonholo_control" type="$(arg PROJECT_NAME)_robot_mainframe" required="true" output="screen">
         <remap from="wall_follower_switch" to="wall_follower_switch_nhc"/>
         <remap from="go_to_point_switch" to="go_to_point_switch_nhc"/>
 	</node>
