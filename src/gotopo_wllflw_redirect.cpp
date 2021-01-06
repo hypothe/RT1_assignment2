@@ -11,6 +11,7 @@ bool goToPoNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     
     if (plan_algo_used == "move_base")
     {
+        ROS_INFO("NHC REQUESTED GO_TO_POINT");
         gotopo.request.data = req.data;
         client_go_to_point.call(gotopo);
         res.success = gotopo.response.success;
@@ -22,8 +23,10 @@ bool goToPoBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     std::string plan_algo_used;
     if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
+    ROS_INFO("BUG0 TRIED TO REQUEST GO_TO_POINT");
     if (plan_algo_used == "bug0")
     {
+        ROS_INFO("BUG0 REQUESTED GO_TO_POINT");
         gotopo.request.data = req.data;
         client_go_to_point.call(gotopo);
         res.success = gotopo.response.success;
@@ -37,6 +40,7 @@ bool wllFlwNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     
     if (plan_algo_used == "move_base")
     {
+        ROS_INFO("NHC REQUESTED WALL_FOLLOWER");
         wllflw.request.data = req.data;
         client_wall_follow.call(wllflw);
         res.success = wllflw.response.success;
@@ -48,8 +52,10 @@ bool wllFlwBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     std::string plan_algo_used;
     if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
+    ROS_INFO("BUG0 TRIED TO REQUEST WALL_FOLLOWER");
     if (plan_algo_used == "bug0")
     {
+        ROS_INFO("BUG0 REQUESTED WALL_FOLLOWER");
         wllflw.request.data = req.data;
         client_wall_follow.call(wllflw);
         res.success = wllflw.response.success;

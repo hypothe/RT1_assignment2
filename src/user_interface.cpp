@@ -70,12 +70,12 @@ void set_plan_algo(std::string new_plan){
 
     drive_algo = plan_algo_map[new_plan];
     plan_algo_used = new_plan;
-    ros::param::set("active_plan_algorithm", plan_algo_used);
+    ros::param::set("active_plan_algorithm", new_plan);
 }
 // new_drive:
 //  0 -> move_base drives the robot, cmd_vel_move
 //  1 -> bug0 drives the robot, cmd_vel_bug (to which wall_follow_switch publishes as well)
-//  2 -> stop, simply publish empty messages since there's no one publishing there
+//  2 ->    wall_follow
 void change_drive(int new_drive){
     topic_tools::MuxSelect drive;
     // topic_tools::MuxSelect wllflw_nhc, wllflw_bug;
@@ -175,6 +175,7 @@ void simpleRecovery(){
     target_position = previous_target_position;
     publish_target();
     ROS_ERROR("The target position [%f %f] seems to be unreachable\nReturning to last visited target position", target_position.x, target_position.y);
+    ros::Duration(2).sleep();
     change_drive(0);    // start driving towards last visited target position, would stop when it reaches it
     // Using move_base algorithm, way more robust than bug0, to get back, but without 
     // overwriting the current dribing algorithm chosen by the user.

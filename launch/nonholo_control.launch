@@ -7,7 +7,8 @@
     <!--include file="$(find final_assignment)/launch/simulation_gmapping.launch" /-->
 
     <!--node name="$(arg PROJECT_NAME)_redirect_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_redirect_server" /-->
-    <node name="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" pkg="nonholo_control" type="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" />
+    
+    <!--node name="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" pkg="nonholo_control" type="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" /-->
 
     <node name="mux_cmdvel" pkg="topic_tools" type="mux" args="cmd_vel cmd_vel_move cmd_vel_bug cmd_vel_stop mux:=mux_cmdvel"/>
     
