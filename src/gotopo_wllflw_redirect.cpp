@@ -7,7 +7,7 @@ std_srvs::SetBool wllflw, gotopo;
 
 bool goToPoNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res){
     std::string plan_algo_used;
-    if(!target_reached && !ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
+    if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
     if (plan_algo_used == "move_base")
     {
@@ -20,7 +20,7 @@ bool goToPoNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
 }
 bool goToPoBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res){
     std::string plan_algo_used;
-    if(!target_reached && !ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
+    if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
     if (plan_algo_used == "bug0")
     {
@@ -33,7 +33,7 @@ bool goToPoBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
 }
 bool wllFlwNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res){
     std::string plan_algo_used;
-    if(!target_reached && !ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
+    if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
     if (plan_algo_used == "move_base")
     {
@@ -46,7 +46,7 @@ bool wllFlwNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
 }
 bool wllFlwBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res){
     std::string plan_algo_used;
-    if(!target_reached && !ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
+    if(!ros::param::get("active_plan_algorithm", plan_algo_used)){ ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
     
     if (plan_algo_used == "bug0")
     {
@@ -66,7 +66,7 @@ int main(int argc, char** argv){
     ros::ServiceServer srv_gotopo_nhc = n.advertiseService("/go_to_point_switch_nhc", goToPoNHC);
     ros::ServiceServer srv_gotopo_bug = n.advertiseService("/go_to_point_switch_bug", goToPoBUG);
     ros::ServiceServer srv_wllflw_nhc = n.advertiseService("/wall_follower_switch_nhc", wllFlwNHC);
-    ros::ServiceServer srv_wllflw_nhc = n.advertiseService("/wall_follower_switch_nhc", wllFlwNHC);
+    ros::ServiceServer srv_wllflw_bug = n.advertiseService("/wall_follower_switch_bug", wllFlwBUG);
 
   	client_wall_follow          =	n.serviceClient<std_srvs::SetBool>("/wall_follower_switch");
   	client_go_to_point          =	n.serviceClient<std_srvs::SetBool>("/go_to_point_switch");

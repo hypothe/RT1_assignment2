@@ -78,17 +78,19 @@ void set_plan_algo(std::string new_plan){
 //  2 -> stop, simply publish empty messages since there's no one publishing there
 void change_drive(int new_drive){
     topic_tools::MuxSelect drive;
-    topic_tools::MuxSelect wllflw_nhc, wllflw_bug;
-    topic_tools::MuxSelect gotopo_nhc, gotopo_bug;
+    // topic_tools::MuxSelect wllflw_nhc, wllflw_bug;
+    // topic_tools::MuxSelect gotopo_nhc, gotopo_bug;
     std_srvs::SetBool wall_follow, go_to_point;
         
     if (new_drive == 0){
         set_plan_algo("move_base");
         // --- Make this script drive the wall_follower_service ---
+        /*
         wllflw_nhc.request.topic = "wall_follower_switch";
         gotopo_nhc.request.topic = "go_to_point_switch";
         wllflw_bug.request.topic = "redirect";
         gotopo_bug.request.topic = "redirect";
+        */
             
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = false;
@@ -98,10 +100,12 @@ void change_drive(int new_drive){
     else if (new_drive == 1){
         set_plan_algo("bug0");
         // --- Make the bug_m drive the wall_follower_service   ---
+        /*
         wllflw_bug.request.topic = "redirect";
         gotopo_bug.request.topic = "redirect";
         wllflw_bug.request.topic = "wall_follower_switch";
         gotopo_bug.request.topic = "go_to_point_switch";
+        */
         
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = true;
@@ -110,10 +114,12 @@ void change_drive(int new_drive){
     }
     else if (new_drive == 2){ // wall follow
         // --- Make this script drive the wall_follower_service ---
+        /*
         wllflw_nhc.request.topic = "wall_follower_switch";
         gotopo_nhc.request.topic = "go_to_point_switch";
         wllflw_bug.request.topic = "redirect";
         gotopo_bug.request.topic = "redirect";
+        */
         
 	    wall_follow.request.data = true;
 	    go_to_point.request.data = false;
@@ -122,10 +128,12 @@ void change_drive(int new_drive){
     }
     else if (new_drive == 3){
         // --- Make this script drive the wall_follower_service ---
+        /*
         wllflw_nhc.request.topic = "wall_follower_switch";
         gotopo_nhc.request.topic = "go_to_point_switch";
         wllflw_bug.request.topic = "redirect";
         gotopo_bug.request.topic = "redirect";
+        */
             
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = false;
@@ -134,10 +142,12 @@ void change_drive(int new_drive){
     }
     
     mux_cmd_vel.call(drive);
+    /*
     mux_go_to_point_nhc.call(gotopo_nhc);
     mux_wall_follow_nhc.call(wllflw_nhc);
     mux_go_to_point_bug.call(gotopo_bug);
     mux_wall_follow_bug.call(wllflw_bug);
+    */
     
     client_wall_follow.call(wall_follow);
     client_go_to_point.call(go_to_point);
@@ -216,10 +226,10 @@ int main(int argc, char **argv)
     ros::Subscriber unreach_sub =   n.subscribe("/target_unreachable", 1000, targetUnreachableCallback);
   	  	
   	mux_cmd_vel                 =   n.serviceClient<topic_tools::MuxSelect>("/mux_cmdvel/select");
-  	mux_wall_follow_nhc             =   n.serviceClient<topic_tools::MuxSelect>("/mux_wllflw_nhc/select");
+  	/*mux_wall_follow_nhc             =   n.serviceClient<topic_tools::MuxSelect>("/mux_wllflw_nhc/select");
   	mux_go_to_point_nhc             =   n.serviceClient<topic_tools::MuxSelect>("/mux_gotopo_nhc/select");
   	mux_wall_follow_bug             =   n.serviceClient<topic_tools::MuxSelect>("/mux_wllflw_bug/select");
-  	mux_go_to_point_bug             =   n.serviceClient<topic_tools::MuxSelect>("/mux_gotopo_bug/select");
+  	mux_go_to_point_bug             =   n.serviceClient<topic_tools::MuxSelect>("/mux_gotopo_bug/select");*/
   	
 	pub = n.advertise<move_base_msgs::MoveBaseActionGoal>("/move_base/goal", 1000);
 	ros::Publisher pub_err = n.advertise<std_msgs::Empty>("/target_reached", 1000);

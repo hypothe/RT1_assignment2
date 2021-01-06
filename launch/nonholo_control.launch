@@ -6,14 +6,15 @@
 	<rosparam command="load" file="$(find nonholo_control)/param/nonholo_params.yaml" />
     <!--include file="$(find final_assignment)/launch/simulation_gmapping.launch" /-->
 
-    <node name="$(arg PROJECT_NAME)_redirect_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_redirect_server" />
+    <!--node name="$(arg PROJECT_NAME)_redirect_server" pkg="nonholo_control" type="$(arg PROJECT_NAME)_redirect_server" /-->
+    <node name="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" pkg="nonholo_control" type="$(arg PROJECT_NAME)_gotopo_wllflw_redirect" />
 
     <node name="mux_cmdvel" pkg="topic_tools" type="mux" args="cmd_vel cmd_vel_move cmd_vel_bug cmd_vel_stop mux:=mux_cmdvel"/>
     
-    <node name="mux_wllflw_nhc" pkg="topic_tools" type="mux" args="wall_follower_switch_nhc wall_follower_switch redirect   mux:=mux_wllflw_nhc"/>
-    <node name="mux_wllflw_bug" pkg="topic_tools" type="mux" args="wall_follower_switch_bug redirect wall_follower_switch   mux:=mux_wllflw_bug"/>
-    <node name="mux_gotopo_nhc" pkg="topic_tools" type="mux" args="go_to_point_switch_nhc   go_to_point_switch redirect       mux:=mux_gotopo_nhc"/>
-    <node name="mux_gotopo_bug" pkg="topic_tools" type="mux" args="go_to_point_switch_bug   redirect go_to_point_switch       mux:=mux_gotopo_bug"/>
+    <!--node name="mux_wllflw_nhc" pkg="topic_tools" type="mux" args="wall_follower_switch_nhc wall_follower_switch redirect   mux:=mux_wllflw_nhc"/-->
+    <!--node name="mux_wllflw_bug" pkg="topic_tools" type="mux" args="wall_follower_switch_bug redirect wall_follower_switch   mux:=mux_wllflw_bug"/-->
+    <!--node name="mux_gotopo_nhc" pkg="topic_tools" type="mux" args="go_to_point_switch_nhc   go_to_point_switch redirect       mux:=mux_gotopo_nhc"/-->
+    <!--node name="mux_gotopo_bug" pkg="topic_tools" type="mux" args="go_to_point_switch_bug   redirect go_to_point_switch       mux:=mux_gotopo_bug"/-->
     
     
     <!--node name="mux_wllflw" pkg="topic_tools" type="mux" args="wall_follow_switch wllflw_nhc wllflw_bug mux:=mux_wllflw"/-->
