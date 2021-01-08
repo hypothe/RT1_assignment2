@@ -11,17 +11,42 @@ int prev_choice = -1;
 int target_pos_dim_ = 0;
 bool avoid_duplicates = false;
 
+
 /*********************************************//**
-* 
+* Callback to a call on service 
+* '/target_position/rand'
+*
+* This function chooses one of the available 
+* targets expressed in the parameter server
+* with pseudo-randomic behaviour. If the command
+* line argument 'avoid_duplicates' is 'true' it
+* will avoid to ouput the same random position
+* it previously chose (although if the last
+* target location was user-defined it could
+* be replicated nonetheless).
+*
+* \param req (nonholo_control::TargetPos::Request &):	
+* 			request field of the service 
+            (empty, unused);
+* \param res (nonholo_control::TargetPos::Response &):	
+* 			response field of the service,
+*           a geometry_msgs::Point;
+*
+* \retval success (bool):
+* 			'true' by default (unused);
+*
 ************************************************/
 bool rand_pos(nonholo_control::TargetPos::Request &req, nonholo_control::TargetPos::Response &res){
     int i;
     do{
-        while( (i = rand()) > RAND_MAX - (RAND_MAX - (target_pos_dim_-1) )%target_pos_dim_ ){}   // discard values of rand whih would unbalance the randnomization
+        while( (i = rand()) > RAND_MAX - (RAND_MAX - (target_pos_dim_-1) )%target_pos_dim_ ){}
+        // discard values of rand whih would unbalance the ranndomization
         i = i%target_pos_dim_;
-    }while(avoid_duplicates && prev_choice==i);  // easy but time wasting way: more complex implementation could remove previous goal from the vector, saving it
-                                                // elsewhere, and reinserting it when the next goal is defined
-    prev_choice = i;
+    }while(avoid_duplicates && prev_choice==i); // easy but time wasting way: more complex
+                                                // implementation could remove previous goal from the vector, 
+                                                // saving it elsewhere, and reinserting it when the next goal
+                                                // is defined.
+    prev_choice = i;                            // Update the last choice made
     res.target_pos.x = target_pos_[i].first;
 	res.target_pos.y = target_pos_[i].second;
 	return true;
@@ -37,14 +62,16 @@ int main(int argc, char* argv[]){
 	}
 	
 	srand(time(0));	/* random seed initialization */
-	ros::ServiceServer service = n.advertiseService("/target_position/rand", rand_pos);	 /* Server for the Service /target_position */
-										/* note that the same topic could be used to hold target position generated in more "meaningful" way */
+	ros::ServiceServer service = n.advertiseService("/target_position/rand", rand_pos);
 										
-	if(!ros::param::get("goals_vector", param_vector)){ ROS_ERROR("No field 'goals_vector' found in the parameter file."); }
+	if(!ros::param::get("goals_vector", param_vector))
+	    { ROS_ERROR("No field 'goals_vector' found in the parameter file."); }
+	    
 	for(int i = 0; i<param_vector.size(); i+=2){
 	    target_pos_.push_back(std::make_pair(param_vector[i], param_vector[i+1]));
 	}
-	target_pos_dim_ = target_pos_.size();   // of the process
+	    
+	target_pos_dim_ = target_pos_.size();   // number of valid target positions
 	ros::spin();
 
 	return 0;

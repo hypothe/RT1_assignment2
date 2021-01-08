@@ -13,21 +13,15 @@
 #include <iostream>
 #include <math.h>
 
-ros::Publisher pub;					/**< Publisher used to publish velocities */
+ros::Publisher pub;					    /**< Publisher used to publish velocities */
 
 ros::ServiceClient client_target_rand;	/**< Service client used for obtaining random target positions */
 ros::ServiceClient client_target_user;	/**< Service client used for obtaining user defined target positions */
-ros::ServiceClient client_go_to_point;  /**< Enabling wall following directly */
-ros::ServiceClient client_wall_follow;  /**< Enabling wall following directly */
-ros::ServiceClient client_target_reached;
-ros::ServiceClient client_target_unreachable;
-ros::ServiceClient client_ui_menu;
+ros::ServiceClient client_go_to_point;  /**< Service client enabling go to point directly */
+ros::ServiceClient client_wall_follow;  /**< Service client enabling wall follow directly */
+ros::ServiceClient client_ui_menu;      /**< Service client used to communicate with the UI */
 
 ros::ServiceClient mux_cmd_vel;         /**< Allowing for multiplexing between multiple robot driving sources*/
-ros::ServiceClient mux_wall_follow_nhc;     /**< Allowing for multiplexing between multiple robot driving sources*/
-ros::ServiceClient mux_go_to_point_nhc;     /**< Allowing for multiplexing between multiple robot driving sources*/
-ros::ServiceClient mux_wall_follow_bug;     /**< Allowing for multiplexing between multiple robot driving sources*/
-ros::ServiceClient mux_go_to_point_bug;     /**< Allowing for multiplexing between multiple robot driving sources*/
 
 
 geometry_msgs::Point target_position;	/**< Target position to reach, defined as a Point */
@@ -39,142 +33,226 @@ char state_ = 0;
 bool _target_reached = false;
 bool _target_unreachable = false;
 
-std::map<std::string, int> plan_algo_map;
-std::map<std::string, int>::iterator plan_algo_map_it;
-std::string plan_algo_used;
+std::map<std::string, int> plan_algo_map;   /**< Map of the available planning alogorithms "name":ID, 
+                                                retrieved from parameter server */
+std::map<std::string, int>::iterator plan_algo_map_it;  /**< Iterator moving on the planning algorithms map */
+std::string plan_algo_used;                 /**< Name of the planning algorithm used */
 
-/* statuses:
+/*  STATUSES:
     0: waiting for target (includes following a wall)
     1: moving, non interruptible
 */
-/*  Note the different way the two algorithms require to indicate the goal position, with move_base reading it from a topic (move_base_action_goal)
-    and bug0 reading it from the parameter server
+/*  
 */
+/*********************************************//**
+* Routine to publish a target position (goal), 
+* stored as a global attribute
+* 
+* This function displays the menu with options
+* the user can choose from. The input choice 
+* is inserted in the 'response' field of the
+* service.
+* Note the different way the two algorithms 
+* require to indicate the goal position, with 
+* move_base reading it from a topic 
+* (move_base_action_goal) and bug0 reading it 
+* from the parameter server.
+*
+************************************************/
 void publish_target(){
-    // if (drive_algo == 0){
-    //if (drive_algo == 0 || drive_algo == 1){
         move_base_msgs::MoveBaseActionGoal move_msg;
         // fill it with the local data and publish it
         move_msg.goal.target_pose.header.frame_id = "map";
         move_msg.goal.target_pose.pose.position.x = target_position.x;
         move_msg.goal.target_pose.pose.position.y = target_position.y;
         move_msg.goal.target_pose.pose.orientation.w = 1;
-        
         pub.publish(move_msg);
-    //}
-    //else if (drive_algo == 1){
+        
         ros::param::set("/des_pos_x", target_position.x);
         ros::param::set("/des_pos_y", target_position.y);
-   //}
 }
 
 
 // updates both local and param value
+/*********************************************//**
+* Function that updates the reference to the 
+* planning algorithm used.
+*
+* The update is both local and on the value
+* stored in the parameter server.
+*
+* \param new_plan (std::string):
+*           name of the algorithm, as presented
+*           in the keys of the map in the
+*           parameters;
+*
+************************************************/
 void set_plan_algo(std::string new_plan){
 
     drive_algo = plan_algo_map[new_plan];
     plan_algo_used = new_plan;
     ros::param::set("active_plan_algorithm", new_plan);
 }
-// new_drive:
-//  0 -> move_base drives the robot, cmd_vel_move
-//  1 -> bug0 drives the robot, cmd_vel_bug (to which wall_follow_switch publishes as well)
-//  2 ->    wall_follow
+
+/*********************************************//**
+* Function that updates the behaviour of the
+* planning algorithm used.
+*
+* It first updates the reference to the algorithm,
+* then uses a multiplexer to select which of the
+* remapped cmd_vel outputs to use, either the
+* move_base or bug0 one. It also calls the 
+* swithcer for wall_follow and go_to_point 
+* behaviour to set that behaviour (notice how
+* they do not impact the driving mode move_base
+* as a planner to a goal). In the function the
+* value of the parameter 'wall_follow_active'
+* is set as well, denoting if the wall follow
+* behaviour is in act, in order to "mute" the
+* bug0 service calls to go_to_point and 
+* wall_follow in the meantime.
+*
+* \param new_drive (int):
+*           the ID of the planning parameter to
+*           use:\n
+*           0 -> move_base\n
+*           1 -> bug0\n
+*           2 -> wall follow\n
+*           3 -> stop (unused)\n
+*
+************************************************/
 void change_drive(int new_drive){
     topic_tools::MuxSelect drive;
-    // topic_tools::MuxSelect wllflw_nhc, wllflw_bug;
-    // topic_tools::MuxSelect gotopo_nhc, gotopo_bug;
     std_srvs::SetBool wall_follow, go_to_point;
+    bool wall_follow_active = false;
         
     if (new_drive == 0){
         set_plan_algo("move_base");
-        // --- Make this script drive the wall_follower_service ---
-        /*
-        wllflw_nhc.request.topic = "wall_follower_switch";
-        gotopo_nhc.request.topic = "go_to_point_switch";
-        wllflw_bug.request.topic = "redirect";
-        gotopo_bug.request.topic = "redirect";
-        */
-            
+        // ---                              ---
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = false;
-        // ---                                                  ---
+        // ---                              ---
         drive.request.topic = "cmd_vel_move";
     }
     else if (new_drive == 1){
         set_plan_algo("bug0");
-        // --- Make the bug_m drive the wall_follower_service   ---
-        /*
-        wllflw_bug.request.topic = "redirect";
-        gotopo_bug.request.topic = "redirect";
-        wllflw_bug.request.topic = "wall_follower_switch";
-        gotopo_bug.request.topic = "go_to_point_switch";
-        */
-        
+        // ---                              ---
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = true;
-        // ---                                                  ---
+        // ---                              ---
         drive.request.topic = "cmd_vel_bug";
     }
-    else if (new_drive == 2){ // wall follow
-        // --- Make this script drive the wall_follower_service ---
-        /*
-        wllflw_nhc.request.topic = "wall_follower_switch";
-        gotopo_nhc.request.topic = "go_to_point_switch";
-        wllflw_bug.request.topic = "redirect";
-        gotopo_bug.request.topic = "redirect";
-        */
-        
+    else if (new_drive == 2){
+        wall_follow_active = true;
+        // ---                              ---
 	    wall_follow.request.data = true;
 	    go_to_point.request.data = false;
-        // ---                                                  ---
+        // ---                              ---
         drive.request.topic = "cmd_vel_bug";
     }
     else if (new_drive == 3){
-        // --- Make this script drive the wall_follower_service ---
-        /*
-        wllflw_nhc.request.topic = "wall_follower_switch";
-        gotopo_nhc.request.topic = "go_to_point_switch";
-        wllflw_bug.request.topic = "redirect";
-        gotopo_bug.request.topic = "redirect";
-        */
-            
+        // ---                              ---
 	    wall_follow.request.data = false;
 	    go_to_point.request.data = false;
-        // ---   
+        // ---                              ---
         drive.request.topic = "cmd_vel_stop";
     }
     
+    if(!ros::param::has("/wall_follow_active"))
+        { ROS_ERROR("No parameter named 'wall_follow_active' found."); }
+    else
+        ros::param::set("/wall_follow_active", wall_follow_active);
+              
     mux_cmd_vel.call(drive);
-    /*
-    mux_go_to_point_nhc.call(gotopo_nhc);
-    mux_wall_follow_nhc.call(wllflw_nhc);
-    mux_go_to_point_bug.call(gotopo_bug);
-    mux_wall_follow_bug.call(wllflw_bug);
-    */
     
     client_wall_follow.call(wall_follow);
     client_go_to_point.call(go_to_point);
 }
 
+/*********************************************//**
+* Callback executed every time a message on topic
+* /odom is published, updating the current robot
+* position.
+*
+* \param pose_msg (const nav_msgs::Odometry::ConstPtr&):	
+* 			content of the message read;
+*
+************************************************/
 void subscriberCallback(const nav_msgs::Odometry::ConstPtr& pose_msg){
     current_position = pose_msg->pose.pose.position;
 }
 
-float pointDist(geometry_msgs::Point p1, geometry_msgs::Point p2){
+/*********************************************//**
+* Routine returning the distance between two 
+* points.
+*
+* \param p1 (geometry_msgs::Point&):	
+* 			first point;
+* \param p2 (geometry_msgs::Point&):	
+* 			second point;
+* \retval pointDist (double):
+*           the euclidean distance between p1 
+*           and p2;
+*
+************************************************/
+double pointDist(geometry_msgs::Point p1, geometry_msgs::Point p2){
 	return sqrt(pow(p1.x-p2.x,2) + pow(p1.y-p2.y, 2));
 }
-double err_pos(){
+
+/*********************************************//**
+* Function computing the distance of the current
+* robot position with respect to the target
+* position.
+*
+* \retval errPos (double):
+*           the euclidean distance between 
+*           current and target position;
+*           
+************************************************/
+double errPos(){
     return pointDist(target_position, current_position);
 }
 
+/*********************************************//**
+* Callback executed every time a message on topic
+* /target_reached is published. 
+*
+* The global variable _target_reached is set to 
+* 'true'.
+*
+* \param empty (const std_msgs::Empty::ConstPtr&):	
+* 			reference to empty message (unused);
+*
+************************************************/
 void targetReachedCallback(const std_msgs::Empty::ConstPtr& empty){
     _target_reached = true; 
 }
+
+/*********************************************//**
+* Callback executed every time a message on topic
+* /target_unreachable is published. 
+*
+* The global variable _target_unreachable is set  
+* to 'true'.
+*
+* \param empty (const std_msgs::Empty::ConstPtr&):	
+* 			reference to empty message, unused;
+*
+************************************************/
 void targetUnreachableCallback(const std_msgs::Empty::ConstPtr& empty){
     _target_unreachable = true; 
 }
 
+
+/*********************************************//**
+* Routine performing a trivial form of recovery
+* behaviour.
+*
+* The robot is sent back to the previous target
+* position, considered to be safe, using 
+* 'move_base' planning (more robust than bug0).
+*
+************************************************/
 void simpleRecovery(){
     target_position = previous_target_position;
     publish_target();
@@ -184,33 +262,6 @@ void simpleRecovery(){
     // Using move_base algorithm, way more robust than bug0, to get back, but without 
     // overwriting the current dribing algorithm chosen by the user.
 }
-/*
-std::map<std::string, int>::iterator next_map_element(std::map<std::string, int> map, std::string current_key){
-    std::map<std::string, int>::iterator it, next;
-    if((it = map.find(current_key)) == map.end()){
-        ROS_ERROR("Planning algorithm not found in paramater file map description");
-        return map.end();
-    }
-    next = it==--map.end()?map.begin():++it;
-    return next;
-}
-*/
-/*
-char menu(){
-    int ans=10;
-    char str[10], curr_alg[16], next_alg[16];
-    //if (!drive_algo){ sprintf(curr_alg, "move_base"); sprintf(next_alg, "bug0");  }
-    //else { sprintf(curr_alg, "bug0"); sprintf(next_alg, "move_base");  }
-    while(ans > 5){
-        // ROS_INFO("\n1.\tRandom goal\n2.\tUser defined goal\n3.\tWall follow\n4.\tStop\n5.\tChange algorithm (from %s to %s)\n", curr_alg, next_alg);
-        ROS_INFO("\n1.\tRandom goal\n2.\tUser defined goal\n3.\tWall follow\n4.\tStop\n5.\tChange algorithm (from %s to %s)\n", 
-                                                            plan_algo_used.c_str(), 
-                                                            next_map_element(plan_algo_map, plan_algo_used)->first.c_str()     );
-        scanf("%s", str);
-        sscanf(str, "%d", &ans);
-    }
-    return ans;
-}*/
 
 int main(int argc, char **argv)
 {
@@ -234,10 +285,6 @@ int main(int argc, char **argv)
     ros::Subscriber unreach_sub =   n.subscribe("/target_unreachable", 1000, targetUnreachableCallback);
   	  	
   	mux_cmd_vel                 =   n.serviceClient<topic_tools::MuxSelect>("/mux_cmdvel/select");
-  	/*mux_wall_follow_nhc             =   n.serviceClient<topic_tools::MuxSelect>("/mux_wllflw_nhc/select");
-  	mux_go_to_point_nhc             =   n.serviceClient<topic_tools::MuxSelect>("/mux_gotopo_nhc/select");
-  	mux_wall_follow_bug             =   n.serviceClient<topic_tools::MuxSelect>("/mux_wllflw_bug/select");
-  	mux_go_to_point_bug             =   n.serviceClient<topic_tools::MuxSelect>("/mux_gotopo_bug/select");*/
   	
 	pub = n.advertise<move_base_msgs::MoveBaseActionGoal>("/move_base/goal", 1000);
 	ros::Publisher pub_err = n.advertise<std_msgs::Empty>("/target_reached", 1000);
@@ -257,13 +304,9 @@ int main(int argc, char **argv)
     
 	while(ros::ok()){
 	    if (state_ == 0){
-	        //in = menu();
 	        
 	        client_ui_menu.call(user_input);
 	        in = user_input.response.menu_case;
-	        
-	        // wall_follow.request.data = false;
-	        // go_to_point.request.data = false;
 	        
 	        if (in == 1 || in ==2){
 	            if (in == 1)    {client_target_rand.call(target_srv);}  // empty request, service returns the new target position
@@ -284,18 +327,15 @@ int main(int argc, char **argv)
 	        else if (in == 4){
 	            ROS_INFO("Standing still in [%f %f]\n", target_position.x, target_position.y);
 	            ros::shutdown();
-	            // should I exit now?
 	        }
 	        else if (in == 5){
     	        ROS_INFO("Changing movement algorithm.\n");
-    	        plan_algo_map_it = next_map_element(plan_algo_map, plan_algo_used); // points to the new planning algorithm among those insered in the param file
+    	        plan_algo_map_it = nextMapElement(plan_algo_map, plan_algo_used); 
+    	        // points to the next planning algorithm among those inserted in the param 
+    	        // file map: note that they are ordered alphabetically with respect to the
+    	        // algorithm names
     	        
     	        set_plan_algo(plan_algo_map_it->first);
-    	        //drive_algo = plan_algo_map_it->second;
-    	        
-    	        //plan_algo_used = plan_algo_map_it->first;
-    	        //ros::param::set("active_plan_algorithm", plan_algo_used);
-    	        //drive_algo = (drive_algo+1)%2;
 	        }
 	    }
 	    else if (state_ == 1){
@@ -303,12 +343,12 @@ int main(int argc, char **argv)
 	            ROS_INFO("Goal reached [%f %f]\n", target_position.x, target_position.y);
 	            state_ = 0;
 	        }
-	        else if (err_pos() < _position_error){ // try with 0.35
+	        else if (errPos() < _position_error){ // default to .5
 	            ROS_INFO("Distance from target lower than threshold, stopping.\n");
 	            pub_err.publish(empty); 
 	            _target_reached = true;
-	            // this is to be sure that the robots stops by proximity, in case move_base keeps going (which appens
-	            // almost always).
+	            // this is to be sure that the robots stops by proximity, in case move_base keeps going (which almost 
+	            //always appens).
 	            // sending the message instead of simply going into the next 'if' ensures that any other node relying 
 	            // on the target being reached is made aware of this.
 	        }
@@ -317,7 +357,10 @@ int main(int argc, char **argv)
 	            _target_unreachable = false;
 	        }
 	        else{
-	            ROS_INFO("At [[%f %f]] going towards [%f %f]\nError [%f]\n", current_position.x, current_position.y, target_position.x, target_position.y, err_pos());
+	            ROS_INFO("At [[%f %f]] going towards [%f %f]\nError [%f]\n", 
+	                                    current_position.x, current_position.y, 
+	                                    target_position.x, target_position.y, 
+	                                    werrPos());
 	        }
 	    }
 	    
