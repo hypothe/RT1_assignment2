@@ -1,7 +1,8 @@
 #include "ros/ros.h"
 #include "std_srvs/SetBool.h"
 #include <mutex>
-#include <condition_variables>
+#include <condition_variable>
+#include <ros/console.h>
 
 std::condition_variable cv_plan;        /**< Conditional variable regulating the reply to the service called from bug_m*/
 std::mutex mux_plan;                    /**< Mutex protecting the boolean the conditional variable is tested on */
@@ -56,7 +57,7 @@ bool goToPoNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     ROS_DEBUG("NHC TRIED TO REQUEST GO_TO_POINT");
     {
         std::unique_lock<std::mutex> lock(mux_plan);
-        cv_plan.wait(lock, []{return !is_bug_plan;})
+        cv_plan.wait(lock, []{return !is_bug_plan;});
     }
     /*if (plan_algo_used == "move_base")
     {*/
@@ -110,7 +111,7 @@ bool goToPoBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     
     {
         std::unique_lock<std::mutex> lock(mux_plan);
-        cv_plan.wait(lock, []{return is_bug_plan && !wall_follow_active;})
+        cv_plan.wait(lock, []{return is_bug_plan && !wall_follow_active;});
     }
     
     /*if (plan_algo_used == "bug0" && !wall_follow_active)
@@ -163,7 +164,7 @@ bool wllFlwNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     //Notice we do not 
     {
         std::unique_lock<std::mutex> lock(mux_plan);
-        cv_plan.wait(lock, []{return !is_bug_plan;})
+        cv_plan.wait(lock, []{return !is_bug_plan;});
     }
     /*if (plan_algo_used == "move_base")
     {*/
@@ -218,7 +219,7 @@ bool wllFlwBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
     
     {
         std::unique_lock<std::mutex> lock(mux_plan);
-        cv_plan.wait(lock, []{return is_bug_plan && !wall_follow_active;})
+        cv_plan.wait(lock, []{return is_bug_plan && !wall_follow_active;});
     }
     // Notice that the mux is released ->here automatically, since the scope in
     // which the unique_lock was defined ended
@@ -239,6 +240,9 @@ bool wllFlwBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res
 int main(int argc, char** argv){
 	ros::init(argc, argv, "gotopo_wllflw_redirect");
 	ros::NodeHandle n;
+	
+	if( ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug) )
+    ros::console::notifyLoggerLevelsChanged();
     
     ros::ServiceServer srv_gotopo_nhc   = n.advertiseService("/go_to_point_switch_nhc", goToPoNHC);
     ros::ServiceServer srv_gotopo_bug   = n.advertiseService("/go_to_point_switch_bug", goToPoBUG);
@@ -251,9 +255,9 @@ int main(int argc, char** argv){
   	ros::Rate loop(20);  // very slow rate, trying to reduce overload of the conditional variable
   	while(1){
       	if(!ros::param::get("active_plan_algorithm", plan_algo_used))
-            { ROS_ERROR("No parameter named 'active_plan_algorithm' found."); }
+            { ROS_ERROR("No parameter named 'active_plan_algorithm' found."); ros::shutdown();}
         if(!ros::param::get("/wall_follow_active", wall_follow_active))
-            { ROS_ERROR("No parameter named 'wall_follow_active' found."); }
+            { ROS_ERROR("No parameter named 'wall_follow_active' found."); ros::shutdown();}
             
         // if the current planning algorithm is bug0 and the robot is not performing the isolated
         // wall_follow behaviour allows for calls from bug_m to be answered

@@ -360,7 +360,7 @@ int main(int argc, char **argv)
 	            ROS_INFO("At [[%f %f]] going towards [%f %f]\nError [%f]\n", 
 	                                    current_position.x, current_position.y, 
 	                                    target_position.x, target_position.y, 
-	                                    werrPos());
+	                                    errPos());
 	        }
 	    }
 	    

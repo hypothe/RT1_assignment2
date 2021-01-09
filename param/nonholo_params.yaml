@@ -9,3 +9,7 @@ active_plan_algorithm:  "move_base"
                      
 plan_algorithm: {move_base : 0, bug0 : 1}
 
+wall_follow_active: false
+
+
+

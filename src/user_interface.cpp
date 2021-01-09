@@ -30,7 +30,7 @@ bool menuCllbck(nonholo_control::UIMenu::Request &req, nonholo_control::UIMenu::
     while(ans > 5){
         ROS_INFO("\n1.\tRandom goal\n2.\tUser defined goal\n3.\tWall follow\n4.\tStop\n5.\tChange algorithm (from %s to %s)\n", 
                                                             plan_algo_used.c_str(), 
-                                                            nexMapElement(plan_algo_map, plan_algo_used)->first.c_str()     );
+                                                            nextMapElement(plan_algo_map, plan_algo_used)->first.c_str()     );
                                                             // the string printed contain the current and next planning algorithm
                                                             // names, as present in the 'plan_algo_map' (note that the orderd in the 
                                                             // map is alphabetical on the algorithm names, keys in the map)
