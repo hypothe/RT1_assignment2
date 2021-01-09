@@ -3,8 +3,15 @@
 #include "std_srvs/Empty.h"
 #include "actionlib_msgs/GoalStatusArray.h" // Service for reading current status of move_base planning algorithm
 #include "move_base_msgs/MoveBaseActionGoal.h" // 
+#include <mutex>
+#include <condition_variable>
+#include <ros/callback_queue>
 
 // the node considers valid only the output emitted by the currently used planning algorithm
+
+std::condition_variable cv_plan;        /**< Conditional variable regulating the reply to the service called from bug_m*/
+std::mutex mux_plan;                    /**< Mutex protecting the boolean the conditional variable is tested on */
+bool is_bug_plan = false;               /**< Boolean expressing the condition, 'true' when the plan is "bug0", 'false' else */
 
 std_msgs::Empty empty_msg;
 bool target_reached = false;
@@ -59,6 +66,14 @@ bool bugReachedCllbck(std_srvs::Empty::Request &req, std_srvs::Empty::Response &
         target_reached = true; 
         ROS_DEBUG("Bug0 called for target reached.\n");
         pub.publish(empty_msg);  
+    }
+    {
+        std::unique_lock<std::mutex> lock(mux_plan);
+        cv_plan.wait(lock, []{return !target_reached;}); 
+        // the conditional variable will unlock the mutex only once the new goal
+        // has been set, in other terms when target_reached is 'false', which
+        // happens when the callback for move_base/goal is launched
+        
     }
     // if the current planning algorithm is not bug0 ignore this call
     return true;
@@ -120,7 +135,15 @@ void moveStatusCllbck(const actionlib_msgs::GoalStatusArray::ConstPtr& status_ms
 ************************************************/
 void moveGoalCllbck(const move_base_msgs::MoveBaseActionGoal::ConstPtr& move_msg){
     ROS_DEBUG("TRD RECEIVED MOVEGOAL CALLBACK\n");
-    target_reached = false;   // this resets the sensitivity to the status msgs
+    {
+        std::lock_guard<std::mutex> lock(mux_plan);
+      	target_reached = false;
+      	cv_plan.notify_all();
+    }
+    // this resets the sensitivity to the status msgs
+    // and notifies the mutex waiting on the conditional
+    // variable blocking the return of the bug service
+    // callback
 }
 
 /*********************************************//**
@@ -139,24 +162,46 @@ void moveGoalCllbck(const move_base_msgs::MoveBaseActionGoal::ConstPtr& move_msg
 ************************************************/
 void targetReachedCllbck(const std_msgs::Empty::ConstPtr& empty){
     ROS_DEBUG("TRD RECEIVED TARGETREACHED CALLBACK\n");
-    target_reached = true;  // this ensures that if some other node publishes a 
-                            // message stating the target has been reached 
+    target_reached = true;
+    
+    // this 
 }
 
 int main(int argc, char** argv){
 	ros::init(argc, argv, "target_reached_server");
 	ros::NodeHandle n;
+	ros::NodeHandle bug_n;
+	ros::CallbackQueue bug_queue;
+	ros::AsyncSpinner bug_spinner(1, &bug_queue);
+	
     
     pub = n.advertise<std_msgs::Empty>("/target_reached", 1000);
-    
-    ros::ServiceServer service  = n.advertiseService("/redirect_bug_user_interface", bugReachedCllbck);
-
     ros::Subscriber status_sub  =   n.subscribe("/move_base/status", 1000, moveStatusCllbck);
     ros::Subscriber goal_sub    =   n.subscribe("/move_base/goal", 1000, moveGoalCllbck);
     ros::Subscriber reach_sub   =   n.subscribe("/target_reached", 1000, targetReachedCllbck);
-
-    ros::spin();
+    out interfering with all other callbacks.
+     
+	bug_n.setCallbackQueue(&bug_queue);
+    ros::ServiceServer service  = bug_n.advertiseService("/redirect_bug_user_interface", bugReachedCllbck);
+    std::thread spinner_bug_thread([&bug_queue](),  {
+                                                        ros::SingleThreadedSpinner spinner_bug;
+                                                        spinner_bug.spin(&bug_queue);
+                                                    });
+    /*  This implements a new node handle, with a callback queue dedicated to deal with services requests
+        made from bug_m at the instant it reaches a target. While, in the original algorithm, it waited
+        until a new user input by directly calling the user interface, here that solution is not feasible,
+        since the UI is called by the "mainframe" algorithm. But what this node can know is when a new
+        goal is established, since it gets published on move_base/goal. The callback to the redirected
+        user_interface service from bug_m is thus stopped (using mutexes and conditional variables) until
+        a new move_base/goal message arrives (which sets the global variable target_reacheed to 'false').
+        However, if we were to use the same callback queue for all incomping messages and requests, this
+        wait on the condvar would stop the spinner from serving other messages (thus preventing the variable
+        to ever change, deadlocking the system). This is the reason why a new spinner thread is created to
+        uniquely serve the "/redirect_bug_user_interface" service requests, so that it can be blocked 
+        with
+    */
     
+    ros::spin();
 
     return 0;
 }
