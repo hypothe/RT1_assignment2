@@ -41,7 +41,7 @@ Please notice that this is but a quick description, a more in depth explanation 
 
 ### Computational graph and communications
 
-![rqt_graph](nonholo_graph.png)
+![rqt_graph](images/nonholo_graph.png)
 The graph of this project might seem quite complex at first glance, but many services are just used for quick
 event notification (meaning that they're empty services or messages which receival is the important part, not
 any data therein). As mentioned, and as can be seen, **robot_mainframe** node is the one with the most connections,
