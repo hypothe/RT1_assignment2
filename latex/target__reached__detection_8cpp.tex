@@ -1,0 +1,204 @@
+\hypertarget{target__reached__detection_8cpp}{}\section{src/target\+\_\+reached\+\_\+detection.cpp File Reference}
+\label{target__reached__detection_8cpp}\index{src/target\+\_\+reached\+\_\+detection.\+cpp@{src/target\+\_\+reached\+\_\+detection.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Empty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Empty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}actionlib\+\_\+msgs/\+Goal\+Status\+Array.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}move\+\_\+base\+\_\+msgs/\+Move\+Base\+Action\+Goal.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$mutex$>$}\\*
+{\ttfamily \#include $<$condition\+\_\+variable$>$}\\*
+{\ttfamily \#include $<$ros/callback\+\_\+queue.\+h$>$}\\*
+{\ttfamily \#include $<$thread$>$}\\*
+Include dependency graph for target\+\_\+reached\+\_\+detection.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{target__reached__detection_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{target__reached__detection_8cpp_aac8de2be6952997c252a2a1cfbff2c0f}{bug\+Reached\+Cllbck} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&res)
+\item 
+void \hyperlink{target__reached__detection_8cpp_a264fba927b5645fcf55bb56960bdd10a}{move\+Status\+Cllbck} (const actionlib\+\_\+msgs\+::\+Goal\+Status\+Array\+::\+Const\+Ptr \&status\+\_\+msg)
+\item 
+void \hyperlink{target__reached__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}{move\+Goal\+Cllbck} (const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&move\+\_\+msg)
+\item 
+void \hyperlink{target__reached__detection_8cpp_aac1b629d7b148bc55cb3dd4cc3dde9e2}{target\+Reached\+Cllbck} (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)
+\item 
+int \hyperlink{target__reached__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::condition\+\_\+variable \hyperlink{target__reached__detection_8cpp_ab1303794238b69a8edb1c018191fafda}{cv\+\_\+plan}
+\item 
+std\+::mutex \hyperlink{target__reached__detection_8cpp_af07a8449c8543cc31ab51d64a6e403eb}{mux\+\_\+plan}
+\item 
+bool \hyperlink{target__reached__detection_8cpp_a4146a0218e7cf0e5037a8bbb7e993d74}{is\+\_\+bug\+\_\+plan} = false
+\item 
+std\+\_\+msgs\+::\+Empty \hyperlink{target__reached__detection_8cpp_ad7487366daa84ade49239f344d482497}{empty\+\_\+msg}
+\item 
+bool \hyperlink{target__reached__detection_8cpp_a39ff69735018017035e1aa238b704ed9}{target\+\_\+reached} = true
+\item 
+ros\+::\+Publisher \hyperlink{target__reached__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}{pub}
+\item 
+bool \hyperlink{target__reached__detection_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}{wall\+\_\+follow\+\_\+active}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!bug\+Reached\+Cllbck@{bug\+Reached\+Cllbck}}
+\index{bug\+Reached\+Cllbck@{bug\+Reached\+Cllbck}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{bug\+Reached\+Cllbck(std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&res)}{bugReachedCllbck(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool bug\+Reached\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{target__reached__detection_8cpp_aac8de2be6952997c252a2a1cfbff2c0f}{}\label{target__reached__detection_8cpp_aac8de2be6952997c252a2a1cfbff2c0f}
+Callback to a call on service \textquotesingle{}/redirect\+\_\+bug\+\_\+user\+\_\+interface\textquotesingle{}
+
+The script \textquotesingle{}bug\+\_\+m\textquotesingle{} calls the service \textquotesingle{}user\+\_\+interface\textquotesingle{}, remapped to this service, when the target position is reached in order to receive a new one. Originally another node would ask that input to the user, but here it\textquotesingle{}s intercepted in order to detect when a target results reached when using the bug0 planner. Note that the service is empty, the important thing is just that a call is received, no exchange of data. Notice the usage of a con
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srvs\+::\+Empty\+::\+Request \&)\+: request field of the service (empty, unused); \\
+\hline
+{\em res} & (std\+\_\+srvs\+::\+Empty\+::\+Response \&)\+: response field of the service, (empty, unused);\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: \textquotesingle{}true\textquotesingle{} by default (unused); \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 89 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!main@{main}}
+\index{main@{main}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{target__reached__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{target__reached__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 203 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!move\+Goal\+Cllbck@{move\+Goal\+Cllbck}}
+\index{move\+Goal\+Cllbck@{move\+Goal\+Cllbck}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{move\+Goal\+Cllbck(const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&move\+\_\+msg)}{moveGoalCllbck(const move_base_msgs::MoveBaseActionGoal::ConstPtr &move_msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+Goal\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&}]{move\+\_\+msg}
+\end{DoxyParamCaption}
+)}\hypertarget{target__reached__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}{}\label{target__reached__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}
+Callback to a message on topic \textquotesingle{}/move\+\_\+base/goal\textquotesingle{}
+
+Once a new goal is issued the node is made susceptible again to messages or service calls interpretable as \textquotesingle{}target reached\textquotesingle{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em move\+\_\+msg} & (const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr\&)\+: goal message (unused); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 170 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!move\+Status\+Cllbck@{move\+Status\+Cllbck}}
+\index{move\+Status\+Cllbck@{move\+Status\+Cllbck}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{move\+Status\+Cllbck(const actionlib\+\_\+msgs\+::\+Goal\+Status\+Array\+::\+Const\+Ptr \&status\+\_\+msg)}{moveStatusCllbck(const actionlib_msgs::GoalStatusArray::ConstPtr &status_msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+Status\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{const actionlib\+\_\+msgs\+::\+Goal\+Status\+Array\+::\+Const\+Ptr \&}]{status\+\_\+msg}
+\end{DoxyParamCaption}
+)}\hypertarget{target__reached__detection_8cpp_a264fba927b5645fcf55bb56960bdd10a}{}\label{target__reached__detection_8cpp_a264fba927b5645fcf55bb56960bdd10a}
+Callback to a message on topic \textquotesingle{}/move\+\_\+base/status\textquotesingle{}
+
+The message contains various information, among which is the current status of the robot with respect to the target position. The status ID = 3 corresponds to \char`\"{}target reached\char`\"{}. If such status is reached when the current planning algorithm is \char`\"{}move\+\_\+base\char`\"{} a message on topic \textquotesingle{}/target\+\_\+reached\textquotesingle{} is published. Notice that, due to the periodic nature of this callback, a flag is here set, making this node react only to the first message stating a target reached received.
+
+
+\begin{DoxyParams}{Parameters}
+{\em status\+\_\+msg} & (const actionlib\+\_\+msgs\+::\+Goal\+Status\+Array\+::\+Const\+Ptr\&)\+: status message, the actual status ID is contained in field \textquotesingle{}status\textquotesingle{} inside the last element of the \textquotesingle{}status\+\_\+list\textquotesingle{} field of the message, \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 141 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!target\+Reached\+Cllbck@{target\+Reached\+Cllbck}}
+\index{target\+Reached\+Cllbck@{target\+Reached\+Cllbck}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+Reached\+Cllbck(const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)}{targetReachedCllbck(const std_msgs::Empty::ConstPtr &empty)}}]{\setlength{\rightskip}{0pt plus 5cm}void target\+Reached\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&}]{empty}
+\end{DoxyParamCaption}
+)}\hypertarget{target__reached__detection_8cpp_aac1b629d7b148bc55cb3dd4cc3dde9e2}{}\label{target__reached__detection_8cpp_aac1b629d7b148bc55cb3dd4cc3dde9e2}
+Callback to a message on topic \textquotesingle{}/target\+\_\+reached\textquotesingle{}
+
+Once a message from that topic is received the node is made unsusceptible to a new message informing of the target being reached (until a new goal is issued, see \textquotesingle{}move\+Goal\+Cllbck\textquotesingle{} function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em empty} & (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr\&)\+: (empty, unused); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 197 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!cv\+\_\+plan@{cv\+\_\+plan}}
+\index{cv\+\_\+plan@{cv\+\_\+plan}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{cv\+\_\+plan}{cv_plan}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::condition\+\_\+variable cv\+\_\+plan}\hypertarget{target__reached__detection_8cpp_ab1303794238b69a8edb1c018191fafda}{}\label{target__reached__detection_8cpp_ab1303794238b69a8edb1c018191fafda}
+This code detects whenever a target results reached by any of the algorithms used. To do that it looks at the status of the \textquotesingle{}move\+\_\+base\textquotesingle{} planning (if present) and at the service requeste by the \textquotesingle{}bug\+\_\+m\textquotesingle{} (originally for its UI, now redirected). This implements a new node handle, with a callback queue dedicated to deal with services requests made from bug\+\_\+m at the instant it reaches a target. While, in the original algorithm, it waited until a new user input by directly calling the user interface, here that solution is not feasible, since the UI is called by the \char`\"{}mainframe\char`\"{} algorithm. But what this node can know is when a new goal is established, since it gets published on \textquotesingle{}move\+\_\+base/goal\textquotesingle{}. The callback to the redirected user\+\_\+interface service from bug\+\_\+m is thus stopped (using mutexes and conditional variables) until a new move\+\_\+base/goal message arrives (which sets the global variable target\+\_\+reacheed to \textquotesingle{}false\textquotesingle{}). However, if we were to use the same callback queue for all incoming messages and requests, this wait on the condvar would stop the spinner from serving other messages (thus preventing the variable to ever change, deadlocking the system). This is the reason why a new spinner thread is created to uniquely serve the \textquotesingle{}/redirect\+\_\+bug\+\_\+user\+\_\+interface\textquotesingle{} service requests, so that it can be blocked without interfering with all other callbacks.\+Conditional variable regulating the reply to the service called from bug\+\_\+m 
+
+Definition at line 47 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!empty\+\_\+msg@{empty\+\_\+msg}}
+\index{empty\+\_\+msg@{empty\+\_\+msg}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{empty\+\_\+msg}{empty_msg}}]{\setlength{\rightskip}{0pt plus 5cm}std\+\_\+msgs\+::\+Empty empty\+\_\+msg}\hypertarget{target__reached__detection_8cpp_ad7487366daa84ade49239f344d482497}{}\label{target__reached__detection_8cpp_ad7487366daa84ade49239f344d482497}
+
+
+Definition at line 51 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!is\+\_\+bug\+\_\+plan@{is\+\_\+bug\+\_\+plan}}
+\index{is\+\_\+bug\+\_\+plan@{is\+\_\+bug\+\_\+plan}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+\_\+bug\+\_\+plan}{is_bug_plan}}]{\setlength{\rightskip}{0pt plus 5cm}bool is\+\_\+bug\+\_\+plan = false}\hypertarget{target__reached__detection_8cpp_a4146a0218e7cf0e5037a8bbb7e993d74}{}\label{target__reached__detection_8cpp_a4146a0218e7cf0e5037a8bbb7e993d74}
+Boolean expressing the condition, \textquotesingle{}true\textquotesingle{} when the plan is \char`\"{}bug0\char`\"{}, \textquotesingle{}false\textquotesingle{} else 
+
+Definition at line 49 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!mux\+\_\+plan@{mux\+\_\+plan}}
+\index{mux\+\_\+plan@{mux\+\_\+plan}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{mux\+\_\+plan}{mux_plan}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::mutex mux\+\_\+plan}\hypertarget{target__reached__detection_8cpp_af07a8449c8543cc31ab51d64a6e403eb}{}\label{target__reached__detection_8cpp_af07a8449c8543cc31ab51d64a6e403eb}
+Mutex protecting the boolean the conditional variable is tested on 
+
+Definition at line 48 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!pub@{pub}}
+\index{pub@{pub}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{pub}{pub}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub}\hypertarget{target__reached__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}{}\label{target__reached__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}
+
+
+Definition at line 53 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!target\+\_\+reached@{target\+\_\+reached}}
+\index{target\+\_\+reached@{target\+\_\+reached}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+reached}{target_reached}}]{\setlength{\rightskip}{0pt plus 5cm}bool target\+\_\+reached = true}\hypertarget{target__reached__detection_8cpp_a39ff69735018017035e1aa238b704ed9}{}\label{target__reached__detection_8cpp_a39ff69735018017035e1aa238b704ed9}
+
+
+Definition at line 52 of file target\+\_\+reached\+\_\+detection.\+cpp.
+
+\index{target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}!wall\+\_\+follow\+\_\+active@{wall\+\_\+follow\+\_\+active}}
+\index{wall\+\_\+follow\+\_\+active@{wall\+\_\+follow\+\_\+active}!target\+\_\+reached\+\_\+detection.\+cpp@{target\+\_\+reached\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{wall\+\_\+follow\+\_\+active}{wall_follow_active}}]{\setlength{\rightskip}{0pt plus 5cm}bool wall\+\_\+follow\+\_\+active}\hypertarget{target__reached__detection_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}{}\label{target__reached__detection_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}
+Global value denoting if the robot is currently in wall following mode, in order to allow (or prevent) \textquotesingle{}bug\+\_\+m\textquotesingle{} node to control go\+\_\+to\+\_\+point\+\_\+switch and wall\+\_\+follower\+\_\+switch 
+
+Definition at line 56 of file target\+\_\+reached\+\_\+detection.\+cpp.
+

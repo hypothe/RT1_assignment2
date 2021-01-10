@@ -3,6 +3,18 @@
 
 #include "ros/ros.h"
 
+#define MOVE_BASE_DRIVE 0
+#define BUG0_DRIVE 1
+#define WALL_FOLLOW_DRIVE 2
+#define STOP_DRIVE 3
+#define WALL_FOLLOW_DRIVE 2
+#define CHOICE_RAND_POS 1
+#define CHOICE_USER_POS 2
+#define CHOICE_WALL_FOLLOW 3
+#define CHOICE_STOP 4
+#define CHOICE_CHANGE_ALGORITHM 5
+#define STATE_WAITING 0
+#define STATE_DRIVING 1
 
 /*********************************************//**
 * Function returning the element in a map next to

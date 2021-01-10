@@ -1,0 +1,119 @@
+\hypertarget{unreachable__target__detection_8cpp}{}\section{src/unreachable\+\_\+target\+\_\+detection.cpp File Reference}
+\label{unreachable__target__detection_8cpp}\index{src/unreachable\+\_\+target\+\_\+detection.\+cpp@{src/unreachable\+\_\+target\+\_\+detection.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Empty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}move\+\_\+base\+\_\+msgs/\+Move\+Base\+Action\+Goal.\+h\char`\"{}}\\*
+Include dependency graph for unreachable\+\_\+target\+\_\+detection.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{unreachable__target__detection_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{unreachable__target__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}{move\+Goal\+Cllbck} (const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&move\+\_\+msg)
+\item 
+void \hyperlink{unreachable__target__detection_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}{target\+Reached\+Callback} (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)
+\item 
+int \hyperlink{unreachable__target__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+\_\+msgs\+::\+Empty \hyperlink{unreachable__target__detection_8cpp_ad7487366daa84ade49239f344d482497}{empty\+\_\+msg}
+\item 
+ros\+::\+Publisher \hyperlink{unreachable__target__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}{pub}
+\item 
+ros\+::\+Time \hyperlink{unreachable__target__detection_8cpp_a39430af82e23d7a5275bc0e639d96c1b}{target\+\_\+init}
+\item 
+bool \hyperlink{unreachable__target__detection_8cpp_a43c08d193d555a2b2a61c53d2a4e5a63}{started} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!main@{main}}
+\index{main@{main}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{unreachable__target__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{unreachable__target__detection_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 60 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!move\+Goal\+Cllbck@{move\+Goal\+Cllbck}}
+\index{move\+Goal\+Cllbck@{move\+Goal\+Cllbck}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{move\+Goal\+Cllbck(const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&move\+\_\+msg)}{moveGoalCllbck(const move_base_msgs::MoveBaseActionGoal::ConstPtr &move_msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+Goal\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr \&}]{move\+\_\+msg}
+\end{DoxyParamCaption}
+)}\hypertarget{unreachable__target__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}{}\label{unreachable__target__detection_8cpp_abd4e27bb78f1fbfe925a71df5f24adcf}
+Callback to a call on topic \textquotesingle{}move\+\_\+base/goal\textquotesingle{}
+
+Each time a new goal is published this callback starts the \textquotesingle{}target\+\_\+init\textquotesingle{} timer, used to evaluate time passed since last goal wsa given.
+
+
+\begin{DoxyParams}{Parameters}
+{\em move\+\_\+msg} & (const move\+\_\+base\+\_\+msgs\+::\+Move\+Base\+Action\+Goal\+::\+Const\+Ptr\&)\+: message, its content is not useful; \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!target\+Reached\+Callback@{target\+Reached\+Callback}}
+\index{target\+Reached\+Callback@{target\+Reached\+Callback}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+Reached\+Callback(const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)}{targetReachedCallback(const std_msgs::Empty::ConstPtr &empty)}}]{\setlength{\rightskip}{0pt plus 5cm}void target\+Reached\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&}]{empty}
+\end{DoxyParamCaption}
+)}\hypertarget{unreachable__target__detection_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}{}\label{unreachable__target__detection_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}
+Callback to a call on topic \textquotesingle{}/target\+\_\+reached\textquotesingle{}
+
+Each time a given tarrget is reached the timer will stop to be checked (but not reset, that\textquotesingle{}s done at the arrival of a new goal).
+
+
+\begin{DoxyParams}{Parameters}
+{\em empty} & (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr\&)\+: (unused, empty); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 55 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!empty\+\_\+msg@{empty\+\_\+msg}}
+\index{empty\+\_\+msg@{empty\+\_\+msg}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{empty\+\_\+msg}{empty_msg}}]{\setlength{\rightskip}{0pt plus 5cm}std\+\_\+msgs\+::\+Empty empty\+\_\+msg}\hypertarget{unreachable__target__detection_8cpp_ad7487366daa84ade49239f344d482497}{}\label{unreachable__target__detection_8cpp_ad7487366daa84ade49239f344d482497}
+This node is used to crudely identify a situation where the goal coordinates are assumed to be unreachable by the robot. To do that, a timer is initialized each time a new goal is published, and the time passed is checked at each spin. If more than 2 minutes have passed the goal is deemed unreachable, and a message on the topic \textquotesingle{}/unreachable\+\_\+target\textquotesingle{} is published. 
+
+Definition at line 18 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!pub@{pub}}
+\index{pub@{pub}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{pub}{pub}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub}\hypertarget{unreachable__target__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}{}\label{unreachable__target__detection_8cpp_a350594df3e8f6948c8462edfd41ce086}
+Publisher used to publish message when a target is reached 
+
+Definition at line 19 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!started@{started}}
+\index{started@{started}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{started}{started}}]{\setlength{\rightskip}{0pt plus 5cm}bool started = false}\hypertarget{unreachable__target__detection_8cpp_a43c08d193d555a2b2a61c53d2a4e5a63}{}\label{unreachable__target__detection_8cpp_a43c08d193d555a2b2a61c53d2a4e5a63}
+Variable that is \textquotesingle{}false\textquotesingle{} whenever a goal has been reached but the next one hasn\textquotesingle{}t been assigned yet 
+
+Definition at line 21 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+
+\index{unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}!target\+\_\+init@{target\+\_\+init}}
+\index{target\+\_\+init@{target\+\_\+init}!unreachable\+\_\+target\+\_\+detection.\+cpp@{unreachable\+\_\+target\+\_\+detection.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+init}{target_init}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Time target\+\_\+init}\hypertarget{unreachable__target__detection_8cpp_a39430af82e23d7a5275bc0e639d96c1b}{}\label{unreachable__target__detection_8cpp_a39430af82e23d7a5275bc0e639d96c1b}
+Timer used to track time passing between a goal request and it being reached 
+
+Definition at line 20 of file unreachable\+\_\+target\+\_\+detection.\+cpp.
+

@@ -1,0 +1,87 @@
+\hypertarget{namespacebug__restart__service}{}\section{bug\+\_\+restart\+\_\+service Namespace Reference}
+\label{namespacebug__restart__service}\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespacebug__restart__service_ab9e9f5c082d48d8d83c3e6b563dc3df5}{bug\+Restart\+Cllbck} (req)
+\item 
+def \hyperlink{namespacebug__restart__service_ad1c3c4a1d8a4d3bc3e3c943e6f06e39e}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{namespacebug__restart__service_a111ac98f73b77147bc204f0de607151c}{package} = \textquotesingle{}final\+\_\+assignment\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em \subparagraph*{}
+
+This simple node waits for a call on its \# service \textquotesingle{}\hyperlink{namespacebug__restart__service}{bug\+\_\+restart\+\_\+service}\textquotesingle{}, which then \# instructs it to launch a new instance of \# the \textquotesingle{}bug\textquotesingle{} node, using \textquotesingle{}roslaunch\textquotesingle{} A\+PI \# in the \textquotesingle{}main\textquotesingle{}. \end{DoxyCompactList}\item 
+string \hyperlink{namespacebug__restart__service_acd88d59006d4d0c6423ccc40ed3986d2}{executable} = \textquotesingle{}bug\+\_\+m.\+py\textquotesingle{}
+\item 
+\hyperlink{namespacebug__restart__service_a42bb9af0de4ac22222ad7dc5a12018be}{node}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}!bug\+Restart\+Cllbck@{bug\+Restart\+Cllbck}}
+\index{bug\+Restart\+Cllbck@{bug\+Restart\+Cllbck}!bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsubsection[{\texorpdfstring{bug\+Restart\+Cllbck(req)}{bugRestartCllbck(req)}}]{\setlength{\rightskip}{0pt plus 5cm}def bug\+\_\+restart\+\_\+service.\+bug\+Restart\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{}]{req}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacebug__restart__service_ab9e9f5c082d48d8d83c3e6b563dc3df5}{}\label{namespacebug__restart__service_ab9e9f5c082d48d8d83c3e6b563dc3df5}
+\begin{DoxyVerb}A function that sets the global 
+variable '_to_restar', later on
+used by the main to launch a new
+instance of the 'bug' node.\end{DoxyVerb}
+ 
+
+Definition at line 26 of file bug\+\_\+restart\+\_\+service.\+py.
+
+\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}!main@{main}}
+\index{main@{main}!bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}def bug\+\_\+restart\+\_\+service.\+main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacebug__restart__service_ad1c3c4a1d8a4d3bc3e3c943e6f06e39e}{}\label{namespacebug__restart__service_ad1c3c4a1d8a4d3bc3e3c943e6f06e39e}
+
+
+Definition at line 41 of file bug\+\_\+restart\+\_\+service.\+py.
+
+
+
+\subsection{Variable Documentation}
+\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}!executable@{executable}}
+\index{executable@{executable}!bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsubsection[{\texorpdfstring{executable}{executable}}]{\setlength{\rightskip}{0pt plus 5cm}string bug\+\_\+restart\+\_\+service.\+executable = \textquotesingle{}bug\+\_\+m.\+py\textquotesingle{}}\hypertarget{namespacebug__restart__service_acd88d59006d4d0c6423ccc40ed3986d2}{}\label{namespacebug__restart__service_acd88d59006d4d0c6423ccc40ed3986d2}
+
+
+Definition at line 16 of file bug\+\_\+restart\+\_\+service.\+py.
+
+\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}!node@{node}}
+\index{node@{node}!bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsubsection[{\texorpdfstring{node}{node}}]{\setlength{\rightskip}{0pt plus 5cm}bug\+\_\+restart\+\_\+service.\+node}\hypertarget{namespacebug__restart__service_a42bb9af0de4ac22222ad7dc5a12018be}{}\label{namespacebug__restart__service_a42bb9af0de4ac22222ad7dc5a12018be}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = roslaunch.core.Node(package, executable, name=\textcolor{stringliteral}{'bug'}, \(\backslash\)
+2                     remap\_args= [(\textcolor{stringliteral}{'user\_interface'},\textcolor{stringliteral}{'redirect\_bug\_user\_interface'}), \(\backslash\)
+3                                 (\textcolor{stringliteral}{'wall\_follower\_switch'},\textcolor{stringliteral}{'wall\_follower\_switch\_bug'}), \(\backslash\)
+4                                 (\textcolor{stringliteral}{'go\_to\_point\_switch'},\textcolor{stringliteral}{'go\_to\_point\_switch\_bug'})], \(\backslash\)
+5                                 output=\textcolor{stringliteral}{'screen'})
+\end{DoxyCode}
+
+
+Definition at line 19 of file bug\+\_\+restart\+\_\+service.\+py.
+
+\index{bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}!package@{package}}
+\index{package@{package}!bug\+\_\+restart\+\_\+service@{bug\+\_\+restart\+\_\+service}}
+\subsubsection[{\texorpdfstring{package}{package}}]{\setlength{\rightskip}{0pt plus 5cm}string bug\+\_\+restart\+\_\+service.\+package = \textquotesingle{}final\+\_\+assignment\textquotesingle{}}\hypertarget{namespacebug__restart__service_a111ac98f73b77147bc204f0de607151c}{}\label{namespacebug__restart__service_a111ac98f73b77147bc204f0de607151c}
+
+
+\subparagraph*{}
+
+This simple node waits for a call on its \# service \textquotesingle{}\hyperlink{namespacebug__restart__service}{bug\+\_\+restart\+\_\+service}\textquotesingle{}, which then \# instructs it to launch a new instance of \# the \textquotesingle{}bug\textquotesingle{} node, using \textquotesingle{}roslaunch\textquotesingle{} A\+PI \# in the \textquotesingle{}main\textquotesingle{}. 
+
+\# \subparagraph*{}
+
+Definition at line 15 of file bug\+\_\+restart\+\_\+service.\+py.
+

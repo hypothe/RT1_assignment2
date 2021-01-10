@@ -2,10 +2,17 @@
 #include <vector>
 #include <utility>
 
-#include <XmlRpcValue.h>    // for loading the vector of pairs used for positions
-#include <XmlRpcException.h>
-
 #include "nonholo_control/TargetPos.h"	// Service for target position
+
+
+/*********************************************//**
+* This function is a simple ServiceServer 
+* asking the User to insert a target position,
+* which needs to compell to the imposed limits,
+* restricting the choice to one of those defined
+* in the parameter server.
+*
+************************************************/
 
 std::vector< std::pair<double, double> > target_pos_;
 int target_pos_dim_ = 0;

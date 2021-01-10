@@ -1,0 +1,45 @@
+\hypertarget{map__library_8cpp}{}\section{src/map\+\_\+library.cpp File Reference}
+\label{map__library_8cpp}\index{src/map\+\_\+library.\+cpp@{src/map\+\_\+library.\+cpp}}
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/map\+\_\+library.\+h\char`\"{}}\\*
+Include dependency graph for map\+\_\+library.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{map__library_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ std\+::string, int $>$\+::iterator \hyperlink{map__library_8cpp_aa335d4478b9e718becb86ecda9ed5dc9}{next\+Map\+Element} (std\+::map$<$ std\+::string, int $>$ map, std\+::string current\+\_\+key)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{map\+\_\+library.\+cpp@{map\+\_\+library.\+cpp}!next\+Map\+Element@{next\+Map\+Element}}
+\index{next\+Map\+Element@{next\+Map\+Element}!map\+\_\+library.\+cpp@{map\+\_\+library.\+cpp}}
+\subsubsection[{\texorpdfstring{next\+Map\+Element(std\+::map$<$ std\+::string, int $>$ map, std\+::string current\+\_\+key)}{nextMapElement(std::map< std::string, int > map, std::string current_key)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$std\+::string, int$>$\+::iterator next\+Map\+Element (
+\begin{DoxyParamCaption}
+\item[{std\+::map$<$ std\+::string, int $>$}]{map, }
+\item[{std\+::string}]{current\+\_\+key}
+\end{DoxyParamCaption}
+)}\hypertarget{map__library_8cpp_aa335d4478b9e718becb86ecda9ed5dc9}{}\label{map__library_8cpp_aa335d4478b9e718becb86ecda9ed5dc9}
+Function returning the element in a map next to a key passed, treating the map as circular.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & (std\+::map$<$std\+::string, int$>$)\+: map to iterate on; \\
+\hline
+{\em current\+\_\+key} & (std\+::string)\+: key to evaluate the next element of;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em next\+\_\+map\+\_\+element} & (std\+::map$<$std\+::string, int$>$\+::iterator)\+: iterator containing the pair $<$key, value$>$ of the successive element to the key passed; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 4 of file map\+\_\+library.\+cpp.
+

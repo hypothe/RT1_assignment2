@@ -6,6 +6,14 @@
 
 #include "nonholo_control/TargetPos.h"	// Service for target position
 
+/*********************************************//**
+* This function is a simple ServiceServer 
+* returning a random position among those 
+* expressed in the parameter server, as respomse
+* to a request received.
+*
+************************************************/
+
 std::vector< std::pair<double, double> > target_pos_;
 int prev_choice = -1;
 int target_pos_dim_ = 0;

@@ -1,0 +1,213 @@
+\hypertarget{gotopo__wllflw__redirect_8cpp}{}\section{src/gotopo\+\_\+wllflw\+\_\+redirect.cpp File Reference}
+\label{gotopo__wllflw__redirect_8cpp}\index{src/gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{src/gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Set\+Bool.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$ros/console.\+h$>$}\\*
+Include dependency graph for gotopo\+\_\+wllflw\+\_\+redirect.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gotopo__wllflw__redirect_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{gotopo__wllflw__redirect_8cpp_a1e2ca5ea2a0d23fd21df80ec983cc18f}{go\+To\+Po\+N\+HC} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)
+\item 
+bool \hyperlink{gotopo__wllflw__redirect_8cpp_aa452922c5e5226c6e7149185ab7388aa}{go\+To\+Po\+B\+UG} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)
+\item 
+bool \hyperlink{gotopo__wllflw__redirect_8cpp_acb0e8070f7bef626bd06e6754a857d20}{wll\+Flw\+N\+HC} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)
+\item 
+bool \hyperlink{gotopo__wllflw__redirect_8cpp_af0ef993de4041f3a4403989b49d23302}{wll\+Flw\+B\+UG} (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)
+\item 
+int \hyperlink{gotopo__wllflw__redirect_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Service\+Client \hyperlink{gotopo__wllflw__redirect_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}{client\+\_\+go\+\_\+to\+\_\+point}
+\item 
+ros\+::\+Service\+Client \hyperlink{gotopo__wllflw__redirect_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}{client\+\_\+wall\+\_\+follow}
+\item 
+std\+\_\+srvs\+::\+Set\+Bool \hyperlink{gotopo__wllflw__redirect_8cpp_ae9f26c71dd652ae4dcbadfe69db04bc0}{wllflw}
+\item 
+std\+\_\+srvs\+::\+Set\+Bool \hyperlink{gotopo__wllflw__redirect_8cpp_a75d5c21271cfc5c3f97f8e4beda51cf1}{gotopo}
+\item 
+std\+::string \hyperlink{gotopo__wllflw__redirect_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{plan\+\_\+algo\+\_\+used}
+\item 
+bool \hyperlink{gotopo__wllflw__redirect_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}{wall\+\_\+follow\+\_\+active}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!go\+To\+Po\+B\+UG@{go\+To\+Po\+B\+UG}}
+\index{go\+To\+Po\+B\+UG@{go\+To\+Po\+B\+UG}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{go\+To\+Po\+B\+U\+G(std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)}{goToPoBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool go\+To\+Po\+B\+UG (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{gotopo__wllflw__redirect_8cpp_aa452922c5e5226c6e7149185ab7388aa}{}\label{gotopo__wllflw__redirect_8cpp_aa452922c5e5226c6e7149185ab7388aa}
+Callback to a call on service \textquotesingle{}/go\+\_\+to\+\_\+point\+\_\+switch\+\_\+bug\textquotesingle{}
+
+This function decides if the request received should be forwarded to the service \textquotesingle{}/go\+\_\+to\+\_\+point\+\_\+switch\textquotesingle{} (for which it was intended by the calling node). The decision is made on the base of the current value of the parameter \textquotesingle{}active\+\_\+plan\+\_\+algorithm\textquotesingle{}, in this case the call is forwarded if the algorithm is \textquotesingle{}bug0\textquotesingle{} and the robot is not in wall following mode (the call has been made from the bug\+\_\+m node).
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&)\+: request field of the service, will be forwarded if the conditions are met; \\
+\hline
+{\em res} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&)\+: response field of the service, filled with the results of the desired call if the conditions are met, \textquotesingle{}false\textquotesingle{} otherwise;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: same value as res.\+success; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 90 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!go\+To\+Po\+N\+HC@{go\+To\+Po\+N\+HC}}
+\index{go\+To\+Po\+N\+HC@{go\+To\+Po\+N\+HC}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{go\+To\+Po\+N\+H\+C(std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)}{goToPoNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool go\+To\+Po\+N\+HC (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{gotopo__wllflw__redirect_8cpp_a1e2ca5ea2a0d23fd21df80ec983cc18f}{}\label{gotopo__wllflw__redirect_8cpp_a1e2ca5ea2a0d23fd21df80ec983cc18f}
+Callback to a call on service \textquotesingle{}/go\+\_\+to\+\_\+point\+\_\+switch\+\_\+nhc\textquotesingle{}
+
+This function simply forwards the request to the desired service (maintened for symmetry)
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&)\+: request field of the service, will be forwarded; \\
+\hline
+{\em res} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&)\+: response field of the service, filled with the results of the desired call;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: same value as res.\+success; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 52 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!main@{main}}
+\index{main@{main}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{gotopo__wllflw__redirect_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{gotopo__wllflw__redirect_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 187 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!wll\+Flw\+B\+UG@{wll\+Flw\+B\+UG}}
+\index{wll\+Flw\+B\+UG@{wll\+Flw\+B\+UG}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{wll\+Flw\+B\+U\+G(std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)}{wllFlwBUG(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool wll\+Flw\+B\+UG (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{gotopo__wllflw__redirect_8cpp_af0ef993de4041f3a4403989b49d23302}{}\label{gotopo__wllflw__redirect_8cpp_af0ef993de4041f3a4403989b49d23302}
+Callback to a call on service \textquotesingle{}/wall\+\_\+follower\+\_\+switch\+\_\+bug\textquotesingle{}
+
+This function decides if the request received should be forwarded to the service \textquotesingle{}/wall\+\_\+follower\+\_\+switch\textquotesingle{} (for which it was intended by the calling node). The decision is made on the base of the current value of the parameter \textquotesingle{}active\+\_\+plan\+\_\+algorithm\textquotesingle{}, in this case the call is forwarded if the algorithm is \textquotesingle{}bug0\textquotesingle{} and the robot is not in wall following mode (the call has been made from the bug\+\_\+m node).
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&)\+: request field of the service, will be forwarded if the conditions are met; \\
+\hline
+{\em res} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&)\+: response field of the service, filled with the results of the desired call if the conditions are met, \textquotesingle{}false\textquotesingle{} otherwise;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: same value as res.\+success; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 166 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!wll\+Flw\+N\+HC@{wll\+Flw\+N\+HC}}
+\index{wll\+Flw\+N\+HC@{wll\+Flw\+N\+HC}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{wll\+Flw\+N\+H\+C(std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&req, std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&res)}{wllFlwNHC(std_srvs::SetBool::Request &req, std_srvs::SetBool::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool wll\+Flw\+N\+HC (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{gotopo__wllflw__redirect_8cpp_acb0e8070f7bef626bd06e6754a857d20}{}\label{gotopo__wllflw__redirect_8cpp_acb0e8070f7bef626bd06e6754a857d20}
+Callback to a call on service \textquotesingle{}/wall\+\_\+follower\+\_\+switch\+\_\+nhc\textquotesingle{}
+
+This function simply forwards the request to the desired service (maintened for symmetry)
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Request \&)\+: request field of the service, will be forwarded; \\
+\hline
+{\em res} & (std\+\_\+srvs\+::\+Set\+Bool\+::\+Response \&)\+: response field of the service, filled with the results of the desired call;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: same value as res.\+success; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 129 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!client\+\_\+go\+\_\+to\+\_\+point@{client\+\_\+go\+\_\+to\+\_\+point}}
+\index{client\+\_\+go\+\_\+to\+\_\+point@{client\+\_\+go\+\_\+to\+\_\+point}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+go\+\_\+to\+\_\+point}{client_go_to_point}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+go\+\_\+to\+\_\+point}\hypertarget{gotopo__wllflw__redirect_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}{}\label{gotopo__wllflw__redirect_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}
+This code provides a server for the services, driving the \textquotesingle{}go\+\_\+to\+\_\+point\textquotesingle{} and \textquotesingle{}wall\+\_\+follower\textquotesingle{} behaviour, which were remapped into 4 different services in the launch file, in order to distinguish requests made by the \textquotesingle{}bug\+\_\+m\textquotesingle{} (here referred to with te index \textquotesingle{}B\+UG\textquotesingle{}) or \textquotesingle{}robot\+\_\+mainframe\textquotesingle{} (here \textquotesingle{}N\+HC\textquotesingle{}, for \textquotesingle{}non holonomic control\textquotesingle{}. The service callbacks here provided simply forward the requests to the \textquotesingle{}actual servers\textquotesingle{}, listening to \textquotesingle{}wall\+\_\+follower\+\_\+switch\textquotesingle{} and \textquotesingle{}go\+\_\+to\+\_\+point\+\_\+switch\textquotesingle{}, if certain conditions are met.\+Service client enabling go to point directly 
+
+Definition at line 21 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!client\+\_\+wall\+\_\+follow@{client\+\_\+wall\+\_\+follow}}
+\index{client\+\_\+wall\+\_\+follow@{client\+\_\+wall\+\_\+follow}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+wall\+\_\+follow}{client_wall_follow}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+wall\+\_\+follow}\hypertarget{gotopo__wllflw__redirect_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}{}\label{gotopo__wllflw__redirect_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}
+Service client enabling wall follow directly 
+
+Definition at line 22 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!gotopo@{gotopo}}
+\index{gotopo@{gotopo}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{gotopo}{gotopo}}]{\setlength{\rightskip}{0pt plus 5cm}std\+\_\+srvs\+::\+Set\+Bool gotopo}\hypertarget{gotopo__wllflw__redirect_8cpp_a75d5c21271cfc5c3f97f8e4beda51cf1}{}\label{gotopo__wllflw__redirect_8cpp_a75d5c21271cfc5c3f97f8e4beda51cf1}
+Variables where used for services calls 
+
+Definition at line 23 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}}
+\index{plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+used}{plan_algo_used}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string plan\+\_\+algo\+\_\+used}\hypertarget{gotopo__wllflw__redirect_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{}\label{gotopo__wllflw__redirect_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}
+Will contain the planning algorithm currently used 
+
+Definition at line 25 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!wall\+\_\+follow\+\_\+active@{wall\+\_\+follow\+\_\+active}}
+\index{wall\+\_\+follow\+\_\+active@{wall\+\_\+follow\+\_\+active}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{wall\+\_\+follow\+\_\+active}{wall_follow_active}}]{\setlength{\rightskip}{0pt plus 5cm}bool wall\+\_\+follow\+\_\+active}\hypertarget{gotopo__wllflw__redirect_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}{}\label{gotopo__wllflw__redirect_8cpp_a0acc03bbbf2ad7ec37de758eac1f1e63}
+Global value denoting if the robot is currently in wall following mode, in order to allow (or prevent) \textquotesingle{}bug\+\_\+m\textquotesingle{} node to control go\+\_\+to\+\_\+point\+\_\+switch and wall\+\_\+follower\+\_\+switch 
+
+Definition at line 26 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+
+\index{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}!wllflw@{wllflw}}
+\index{wllflw@{wllflw}!gotopo\+\_\+wllflw\+\_\+redirect.\+cpp@{gotopo\+\_\+wllflw\+\_\+redirect.\+cpp}}
+\subsubsection[{\texorpdfstring{wllflw}{wllflw}}]{\setlength{\rightskip}{0pt plus 5cm}std\+\_\+srvs\+::\+Set\+Bool wllflw}\hypertarget{gotopo__wllflw__redirect_8cpp_ae9f26c71dd652ae4dcbadfe69db04bc0}{}\label{gotopo__wllflw__redirect_8cpp_ae9f26c71dd652ae4dcbadfe69db04bc0}
+
+
+Definition at line 23 of file gotopo\+\_\+wllflw\+\_\+redirect.\+cpp.
+

@@ -66,7 +66,6 @@ add_service_files(
    FILES
    UIMenu.srv
    TargetPos.srv
-#   Service2.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -147,7 +146,6 @@ add_executable(${PROJECT_NAME}_user_interface src/user_interface.cpp)
 add_executable(${PROJECT_NAME}_robot_mainframe src/robot_mainframe.cpp)
 add_executable(${PROJECT_NAME}_random_position_server src/random_position_server.cpp)
 add_executable(${PROJECT_NAME}_user_position_server src/user_position_server.cpp)
-add_executable(${PROJECT_NAME}_redirect_server src/redirect_server.cpp)
 add_executable(${PROJECT_NAME}_gotopo_wllflw_redirect src/gotopo_wllflw_redirect.cpp)
 add_executable(${PROJECT_NAME}_target_reached_detection src/target_reached_detection.cpp)
 add_executable(${PROJECT_NAME}_unreachable_target_detection src/unreachable_target_detection.cpp)
@@ -164,7 +162,6 @@ add_dependencies(${PROJECT_NAME}_user_interface ${${PROJECT_NAME}_EXPORTED_TARGE
 add_dependencies(${PROJECT_NAME}_robot_mainframe ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_random_position_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_user_position_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(${PROJECT_NAME}_redirect_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_gotopo_wllflw_redirect ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_target_reached_detection ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_unreachable_target_detection ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -188,9 +185,6 @@ target_link_libraries(${PROJECT_NAME}_random_position_server
 target_link_libraries(${PROJECT_NAME}_user_position_server
    ${catkin_LIBRARIES}
 )
-target_link_libraries(${PROJECT_NAME}_redirect_server
-   ${catkin_LIBRARIES}
-)
 target_link_libraries(${PROJECT_NAME}_gotopo_wllflw_redirect
    ${catkin_LIBRARIES}
 )
@@ -210,10 +204,10 @@ target_link_libraries(${PROJECT_NAME}_unreachable_target_detection
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(PROGRAMS
+   scripts/bug_restart_service.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables and/or libraries for installation
 install(TARGETS ${PROJECT_NAME}

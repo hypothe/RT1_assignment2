@@ -1,0 +1,120 @@
+\hypertarget{user__interface_8cpp}{}\section{src/user\+\_\+interface.cpp File Reference}
+\label{user__interface_8cpp}\index{src/user\+\_\+interface.\+cpp@{src/user\+\_\+interface.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/\+U\+I\+Menu.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/map\+\_\+library.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Empty.\+h\char`\"{}}\\*
+Include dependency graph for user\+\_\+interface.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{user__interface_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{user__interface_8cpp_a1a150eb6c0cec3c713a58bebd051a07c}{menu\+Cllbck} (nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Request \&req, nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Response \&res)
+\item 
+bool \hyperlink{user__interface_8cpp_a0ce74e53301820d82cbb08e57d349f88}{sd\+Cllbck} (std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&res)
+\item 
+int \hyperlink{user__interface_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{user__interface_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{plan\+\_\+algo\+\_\+used}
+\item 
+std\+::map$<$ std\+::string, int $>$ \hyperlink{user__interface_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}{plan\+\_\+algo\+\_\+map}
+\item 
+bool \hyperlink{user__interface_8cpp_a23a0742ddb120a88b03c4eaa61daab72}{alive} = true
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!main@{main}}
+\index{main@{main}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{user__interface_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{user__interface_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 85 of file user\+\_\+interface.\+cpp.
+
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!menu\+Cllbck@{menu\+Cllbck}}
+\index{menu\+Cllbck@{menu\+Cllbck}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{menu\+Cllbck(nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Request \&req, nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Response \&res)}{menuCllbck(nonholo_control::UIMenu::Request &req, nonholo_control::UIMenu::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool menu\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Request \&}]{req, }
+\item[{nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{user__interface_8cpp_a1a150eb6c0cec3c713a58bebd051a07c}{}\label{user__interface_8cpp_a1a150eb6c0cec3c713a58bebd051a07c}
+Callback to a service call of type nonholo\+\_\+control\+::\+U\+I\+Menu on service \textquotesingle{}/ui\+\_\+menu\textquotesingle{}
+
+This function displays the menu with options the user can choose from. The input choice is inserted in the \textquotesingle{}response\textquotesingle{} field of the service, while the services generating the target position are called (if request by the input), and their point inserte in the response field as well.
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Request \&)\+: request field of the service; \\
+\hline
+{\em res} & (nonholo\+\_\+control\+::\+U\+I\+Menu\+::\+Response \&)\+: response field of the service;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: \textquotesingle{}true\textquotesingle{} by default, unused; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 41 of file user\+\_\+interface.\+cpp.
+
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!sd\+Cllbck@{sd\+Cllbck}}
+\index{sd\+Cllbck@{sd\+Cllbck}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{sd\+Cllbck(std\+\_\+srvs\+::\+Empty\+::\+Request \&req, std\+\_\+srvs\+::\+Empty\+::\+Response \&res)}{sdCllbck(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool sd\+Cllbck (
+\begin{DoxyParamCaption}
+\item[{std\+\_\+srvs\+::\+Empty\+::\+Request \&}]{req, }
+\item[{std\+\_\+srvs\+::\+Empty\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{user__interface_8cpp_a0ce74e53301820d82cbb08e57d349f88}{}\label{user__interface_8cpp_a0ce74e53301820d82cbb08e57d349f88}
+Callback to a service call of type std\+\_\+srv\+::\+Empty, informing the User Interface that the \textquotesingle{}robot\+\_\+mainframe\textquotesingle{} has been closed by an user request, and thus this node should be shut down as well (and with it all the nodes in its launch file, being it declared as \textquotesingle{}required\textquotesingle{}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (std\+\_\+srv\+::\+Empty\+::\+Request \&)\+: (unused, empty); \\
+\hline
+{\em res} & (std\+\_\+srv\+::\+Empty\+::\+Response \&)\+: (unused, empty); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 80 of file user\+\_\+interface.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!alive@{alive}}
+\index{alive@{alive}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{alive}{alive}}]{\setlength{\rightskip}{0pt plus 5cm}bool alive = true}\hypertarget{user__interface_8cpp_a23a0742ddb120a88b03c4eaa61daab72}{}\label{user__interface_8cpp_a23a0742ddb120a88b03c4eaa61daab72}
+Variable used to inform this node that it should return when the main node of the project shuts down 
+
+Definition at line 18 of file user\+\_\+interface.\+cpp.
+
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!plan\+\_\+algo\+\_\+map@{plan\+\_\+algo\+\_\+map}}
+\index{plan\+\_\+algo\+\_\+map@{plan\+\_\+algo\+\_\+map}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+map}{plan_algo_map}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$std\+::string, int$>$ plan\+\_\+algo\+\_\+map}\hypertarget{user__interface_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}{}\label{user__interface_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}
+Map of the available planning alogorithms \char`\"{}name\char`\"{}\+:ID, retrieved from parameter server 
+
+Definition at line 17 of file user\+\_\+interface.\+cpp.
+
+\index{user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}!plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}}
+\index{plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}!user\+\_\+interface.\+cpp@{user\+\_\+interface.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+used}{plan_algo_used}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string plan\+\_\+algo\+\_\+used}\hypertarget{user__interface_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{}\label{user__interface_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}
+This function is a simple Service\+Server displaying to the User the list of possible actions the robot an perform. After reading the User input it sends it back in the response field, without performing computations.\+Name of the planning algorithm used 
+
+Definition at line 16 of file user\+\_\+interface.\+cpp.
+

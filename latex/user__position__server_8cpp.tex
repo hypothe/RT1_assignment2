@@ -1,0 +1,129 @@
+\hypertarget{user__position__server_8cpp}{}\section{src/user\+\_\+position\+\_\+server.cpp File Reference}
+\label{user__position__server_8cpp}\index{src/user\+\_\+position\+\_\+server.\+cpp@{src/user\+\_\+position\+\_\+server.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/\+Target\+Pos.\+h\char`\"{}}\\*
+Include dependency graph for user\+\_\+position\+\_\+server.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{user__position__server_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{user__position__server_8cpp_ab7f3686a92794a76fc94a326651f40d8}{find\+\_\+in\+\_\+target\+\_\+pos\+\_\+} (double x, double y)
+\item 
+void \hyperlink{user__position__server_8cpp_a2d188a5aed82c3d524197f0ae845ae09}{print\+\_\+target\+\_\+pos\+\_\+} ()
+\item 
+bool \hyperlink{user__position__server_8cpp_a65db91f29889fda9fa322fa443ea2177}{user\+\_\+pos} (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&req, nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&res)
+\item 
+int \hyperlink{user__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::pair$<$ double, double $>$ $>$ \hyperlink{user__position__server_8cpp_ad84130266518683168e6c767b0faf035}{target\+\_\+pos\+\_\+}
+\item 
+int \hyperlink{user__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}{target\+\_\+pos\+\_\+dim\+\_\+} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!find\+\_\+in\+\_\+target\+\_\+pos\+\_\+@{find\+\_\+in\+\_\+target\+\_\+pos\+\_\+}}
+\index{find\+\_\+in\+\_\+target\+\_\+pos\+\_\+@{find\+\_\+in\+\_\+target\+\_\+pos\+\_\+}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{find\+\_\+in\+\_\+target\+\_\+pos\+\_\+(double x, double y)}{find_in_target_pos_(double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}bool find\+\_\+in\+\_\+target\+\_\+pos\+\_\+ (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{user__position__server_8cpp_ab7f3686a92794a76fc94a326651f40d8}{}\label{user__position__server_8cpp_ab7f3686a92794a76fc94a326651f40d8}
+Function that searches for a 2D point coordinates in the list of valid goals.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & (double)\+: x coordinate; \\
+\hline
+{\em y} & (double)\+: y coordinate;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em found} & (bool)\+: if the element has been found; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 32 of file user\+\_\+position\+\_\+server.\+cpp.
+
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!main@{main}}
+\index{main@{main}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{user__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{user__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 89 of file user\+\_\+position\+\_\+server.\+cpp.
+
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!print\+\_\+target\+\_\+pos\+\_\+@{print\+\_\+target\+\_\+pos\+\_\+}}
+\index{print\+\_\+target\+\_\+pos\+\_\+@{print\+\_\+target\+\_\+pos\+\_\+}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+target\+\_\+pos\+\_\+()}{print_target_pos_()}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+target\+\_\+pos\+\_\+ (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{user__position__server_8cpp_a2d188a5aed82c3d524197f0ae845ae09}{}\label{user__position__server_8cpp_a2d188a5aed82c3d524197f0ae845ae09}
+Routine to print all valid positions retrieved from the parameter server. 
+
+Definition at line 45 of file user\+\_\+position\+\_\+server.\+cpp.
+
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!user\+\_\+pos@{user\+\_\+pos}}
+\index{user\+\_\+pos@{user\+\_\+pos}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{user\+\_\+pos(nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&req, nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&res)}{user_pos(nonholo_control::TargetPos::Request &req, nonholo_control::TargetPos::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool user\+\_\+pos (
+\begin{DoxyParamCaption}
+\item[{nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&}]{req, }
+\item[{nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{user__position__server_8cpp_a65db91f29889fda9fa322fa443ea2177}{}\label{user__position__server_8cpp_a65db91f29889fda9fa322fa443ea2177}
+Callback to a call on service \textquotesingle{}/target\+\_\+position/user\textquotesingle{}
+
+This function asks the user to insert a value for both X and Y coordinates of the goal, but allowing only valid targets (present in the param file)
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&)\+: request field of the service (empty, unused); \\
+\hline
+{\em res} & (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&)\+: response field of the service, a geometry\+\_\+msgs\+::\+Point, contains the valid position inserted;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: \textquotesingle{}true\textquotesingle{} by default (unused); \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 73 of file user\+\_\+position\+\_\+server.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!target\+\_\+pos\+\_\+@{target\+\_\+pos\+\_\+}}
+\index{target\+\_\+pos\+\_\+@{target\+\_\+pos\+\_\+}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+pos\+\_\+}{target_pos_}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$double, double$>$ $>$ target\+\_\+pos\+\_\+}\hypertarget{user__position__server_8cpp_ad84130266518683168e6c767b0faf035}{}\label{user__position__server_8cpp_ad84130266518683168e6c767b0faf035}
+This function is a simple Service\+Server asking the User to insert a target position, which needs to compell to the imposed limits, restricting the choice to one of those defined in the parameter server. 
+
+Definition at line 17 of file user\+\_\+position\+\_\+server.\+cpp.
+
+\index{user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}!target\+\_\+pos\+\_\+dim\+\_\+@{target\+\_\+pos\+\_\+dim\+\_\+}}
+\index{target\+\_\+pos\+\_\+dim\+\_\+@{target\+\_\+pos\+\_\+dim\+\_\+}!user\+\_\+position\+\_\+server.\+cpp@{user\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+pos\+\_\+dim\+\_\+}{target_pos_dim_}}]{\setlength{\rightskip}{0pt plus 5cm}int target\+\_\+pos\+\_\+dim\+\_\+ = 0}\hypertarget{user__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}{}\label{user__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}
+
+
+Definition at line 18 of file user\+\_\+position\+\_\+server.\+cpp.
+

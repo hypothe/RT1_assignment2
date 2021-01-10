@@ -1,0 +1,108 @@
+\hypertarget{random__position__server_8cpp}{}\section{src/random\+\_\+position\+\_\+server.cpp File Reference}
+\label{random__position__server_8cpp}\index{src/random\+\_\+position\+\_\+server.\+cpp@{src/random\+\_\+position\+\_\+server.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$ctime$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/\+Target\+Pos.\+h\char`\"{}}\\*
+Include dependency graph for random\+\_\+position\+\_\+server.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{random__position__server_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{random__position__server_8cpp_ac9570777aabb0cd38286cf52fff376f9}{rand\+\_\+pos} (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&req, nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&res)
+\item 
+int \hyperlink{random__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::pair$<$ double, double $>$ $>$ \hyperlink{random__position__server_8cpp_ad84130266518683168e6c767b0faf035}{target\+\_\+pos\+\_\+}
+\item 
+int \hyperlink{random__position__server_8cpp_a00a35e10ce2540a4788abb18968ffd07}{prev\+\_\+choice} = -\/1
+\item 
+int \hyperlink{random__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}{target\+\_\+pos\+\_\+dim\+\_\+} = 0
+\item 
+bool \hyperlink{random__position__server_8cpp_a8e67e8a343cd3d06ef6796a3863a9f3f}{avoid\+\_\+duplicates} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!main@{main}}
+\index{main@{main}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{random__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{}\label{random__position__server_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Definition at line 63 of file random\+\_\+position\+\_\+server.\+cpp.
+
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!rand\+\_\+pos@{rand\+\_\+pos}}
+\index{rand\+\_\+pos@{rand\+\_\+pos}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{rand\+\_\+pos(nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&req, nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&res)}{rand_pos(nonholo_control::TargetPos::Request &req, nonholo_control::TargetPos::Response &res)}}]{\setlength{\rightskip}{0pt plus 5cm}bool rand\+\_\+pos (
+\begin{DoxyParamCaption}
+\item[{nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&}]{req, }
+\item[{nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&}]{res}
+\end{DoxyParamCaption}
+)}\hypertarget{random__position__server_8cpp_ac9570777aabb0cd38286cf52fff376f9}{}\label{random__position__server_8cpp_ac9570777aabb0cd38286cf52fff376f9}
+Callback to a call on service \textquotesingle{}/target\+\_\+position/rand\textquotesingle{}
+
+This function chooses one of the available targets expressed in the parameter server with pseudo-\/randomic behaviour. If the command line argument \textquotesingle{}avoid\+\_\+duplicates\textquotesingle{} is \textquotesingle{}true\textquotesingle{} it will avoid to ouput the same random position it previously chose (although if the last target location was user-\/defined it could be replicated nonetheless).
+
+
+\begin{DoxyParams}{Parameters}
+{\em req} & (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Request \&)\+: request field of the service (empty, unused); \\
+\hline
+{\em res} & (nonholo\+\_\+control\+::\+Target\+Pos\+::\+Response \&)\+: response field of the service, a geometry\+\_\+msgs\+::\+Point;\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em success} & (bool)\+: \textquotesingle{}true\textquotesingle{} by default (unused); \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 47 of file random\+\_\+position\+\_\+server.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!avoid\+\_\+duplicates@{avoid\+\_\+duplicates}}
+\index{avoid\+\_\+duplicates@{avoid\+\_\+duplicates}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{avoid\+\_\+duplicates}{avoid_duplicates}}]{\setlength{\rightskip}{0pt plus 5cm}bool avoid\+\_\+duplicates = false}\hypertarget{random__position__server_8cpp_a8e67e8a343cd3d06ef6796a3863a9f3f}{}\label{random__position__server_8cpp_a8e67e8a343cd3d06ef6796a3863a9f3f}
+
+
+Definition at line 20 of file random\+\_\+position\+\_\+server.\+cpp.
+
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!prev\+\_\+choice@{prev\+\_\+choice}}
+\index{prev\+\_\+choice@{prev\+\_\+choice}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{prev\+\_\+choice}{prev_choice}}]{\setlength{\rightskip}{0pt plus 5cm}int prev\+\_\+choice = -\/1}\hypertarget{random__position__server_8cpp_a00a35e10ce2540a4788abb18968ffd07}{}\label{random__position__server_8cpp_a00a35e10ce2540a4788abb18968ffd07}
+
+
+Definition at line 18 of file random\+\_\+position\+\_\+server.\+cpp.
+
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!target\+\_\+pos\+\_\+@{target\+\_\+pos\+\_\+}}
+\index{target\+\_\+pos\+\_\+@{target\+\_\+pos\+\_\+}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+pos\+\_\+}{target_pos_}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::pair$<$double, double$>$ $>$ target\+\_\+pos\+\_\+}\hypertarget{random__position__server_8cpp_ad84130266518683168e6c767b0faf035}{}\label{random__position__server_8cpp_ad84130266518683168e6c767b0faf035}
+This function is a simple Service\+Server returning a random position among those expressed in the parameter server, as respomse to a request received. 
+
+Definition at line 17 of file random\+\_\+position\+\_\+server.\+cpp.
+
+\index{random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}!target\+\_\+pos\+\_\+dim\+\_\+@{target\+\_\+pos\+\_\+dim\+\_\+}}
+\index{target\+\_\+pos\+\_\+dim\+\_\+@{target\+\_\+pos\+\_\+dim\+\_\+}!random\+\_\+position\+\_\+server.\+cpp@{random\+\_\+position\+\_\+server.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+pos\+\_\+dim\+\_\+}{target_pos_dim_}}]{\setlength{\rightskip}{0pt plus 5cm}int target\+\_\+pos\+\_\+dim\+\_\+ = 0}\hypertarget{random__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}{}\label{random__position__server_8cpp_aae6c2dcee2f56388b2334aea9b1cd2ef}
+
+
+Definition at line 19 of file random\+\_\+position\+\_\+server.\+cpp.
+

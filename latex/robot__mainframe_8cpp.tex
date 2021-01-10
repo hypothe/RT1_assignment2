@@ -1,0 +1,422 @@
+\hypertarget{robot__mainframe_8cpp}{}\section{src/robot\+\_\+mainframe.cpp File Reference}
+\label{robot__mainframe_8cpp}\index{src/robot\+\_\+mainframe.\+cpp@{src/robot\+\_\+mainframe.\+cpp}}
+{\ttfamily \#include \char`\"{}ros/ros.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Set\+Bool.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+srvs/\+Empty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/\+Empty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}topic\+\_\+tools/\+Mux\+Select.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nav\+\_\+msgs/\+Odometry.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}move\+\_\+base\+\_\+msgs/\+Move\+Base\+Action\+Goal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/map\+\_\+library.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/\+Target\+Pos.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}nonholo\+\_\+control/\+U\+I\+Menu.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+Include dependency graph for robot\+\_\+mainframe.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{robot__mainframe_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{robot__mainframe_8cpp_a3b60c8b389d62783efcd7e1b683e4e2d}{publish\+\_\+target} ()
+\item 
+void \hyperlink{robot__mainframe_8cpp_a2472fce178d8b8316cba3b24e9551d90}{set\+\_\+plan\+\_\+algo} (std\+::string new\+\_\+plan)
+\item 
+void \hyperlink{robot__mainframe_8cpp_a7177d902688d4e84b31deb70683ade2b}{change\+\_\+drive} (int new\+\_\+drive)
+\item 
+void \hyperlink{robot__mainframe_8cpp_aef70658f8ec02213922917e67d9e1c76}{subscriber\+Callback} (const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&pose\+\_\+msg)
+\item 
+double \hyperlink{robot__mainframe_8cpp_abc0a699592177c7c3af2b98174934c54}{point\+Dist} (geometry\+\_\+msgs\+::\+Point p1, geometry\+\_\+msgs\+::\+Point p2)
+\item 
+double \hyperlink{robot__mainframe_8cpp_a22f9e0fa6007a2b14a3624fdea36a79f}{err\+Pos} ()
+\item 
+void \hyperlink{robot__mainframe_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}{target\+Reached\+Callback} (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)
+\item 
+void \hyperlink{robot__mainframe_8cpp_a37adf3f429c75bdd9e954bcc654ff9cf}{target\+Unreachable\+Callback} (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)
+\item 
+void \hyperlink{robot__mainframe_8cpp_a0fa6143039a62c14a68483337aaa5e74}{simple\+Recovery} ()
+\item 
+int \hyperlink{robot__mainframe_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+nonholo\+\_\+control\+::\+Target\+Pos \hyperlink{robot__mainframe_8cpp_a415fc86ef11fed4538200e24d7cc4e4c}{target\+\_\+srv}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_ace4c6dd9534eca46f1394c5f907eb16e}{client\+\_\+target\+\_\+rand}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a2d4e87f28bbd1024471c7f1b942af5b6}{client\+\_\+target\+\_\+user}
+\item 
+ros\+::\+Publisher \hyperlink{robot__mainframe_8cpp_a350594df3e8f6948c8462edfd41ce086}{pub}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}{client\+\_\+go\+\_\+to\+\_\+point}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}{client\+\_\+wall\+\_\+follow}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a14800b5845bc3d2c933cf629be687a5f}{client\+\_\+ui\+\_\+menu}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_ab50bd61ee51d7d0fafe324fb17dec49b}{mux\+\_\+cmd\+\_\+vel}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a573f2b2cd613634bf9569cb4edee635b}{client\+\_\+bug\+\_\+restart}
+\item 
+ros\+::\+Service\+Client \hyperlink{robot__mainframe_8cpp_a44a43af3f57698df849e9b8452e9de12}{client\+\_\+\+U\+I\+\_\+shutdown}
+\item 
+geometry\+\_\+msgs\+::\+Point \hyperlink{robot__mainframe_8cpp_a780203c5a5ca66149d83069dd42bc535}{target\+\_\+position}
+\item 
+geometry\+\_\+msgs\+::\+Point \hyperlink{robot__mainframe_8cpp_ad21dac7011f1455d5563308d8a79a904}{previous\+\_\+target\+\_\+position}
+\item 
+geometry\+\_\+msgs\+::\+Point \hyperlink{robot__mainframe_8cpp_ae9cfb31b126881b1d7231471ba3a5e8f}{current\+\_\+position}
+\item 
+int \hyperlink{robot__mainframe_8cpp_a82510f2ac271f2c705871ad806bcdf4f}{drive\+\_\+algo} = \hyperlink{map__library_8h_adadbcd17d1191482401c7f3a8ce2b0fd}{M\+O\+V\+E\+\_\+\+B\+A\+S\+E\+\_\+\+D\+R\+I\+VE}
+\item 
+char \hyperlink{robot__mainframe_8cpp_ae7d20aa21d8d1363f5ef8096f59b4d8e}{state\+\_\+} = \hyperlink{map__library_8h_a7d7920c1e51cc4eef80206ebd6fee3f4}{S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}
+\item 
+bool \hyperlink{robot__mainframe_8cpp_a9f439efb1f4e7a1926c6401ccddff832}{\+\_\+target\+\_\+reached} = false
+\item 
+bool \hyperlink{robot__mainframe_8cpp_a1bab851596373a463137c571cb67701a}{\+\_\+target\+\_\+unreachable} = false
+\item 
+std\+::map$<$ std\+::string, int $>$ \hyperlink{robot__mainframe_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}{plan\+\_\+algo\+\_\+map}
+\item 
+std\+::map$<$ std\+::string, int $>$\+::iterator \hyperlink{robot__mainframe_8cpp_a2db8520b5159efb77d60c4aa05256e4f}{plan\+\_\+algo\+\_\+map\+\_\+it}
+\item 
+std\+::string \hyperlink{robot__mainframe_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{plan\+\_\+algo\+\_\+used}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!change\+\_\+drive@{change\+\_\+drive}}
+\index{change\+\_\+drive@{change\+\_\+drive}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{change\+\_\+drive(int new\+\_\+drive)}{change_drive(int new_drive)}}]{\setlength{\rightskip}{0pt plus 5cm}void change\+\_\+drive (
+\begin{DoxyParamCaption}
+\item[{int}]{new\+\_\+drive}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a7177d902688d4e84b31deb70683ade2b}{}\label{robot__mainframe_8cpp_a7177d902688d4e84b31deb70683ade2b}
+Function that updates the behaviour of the planning algorithm used.
+
+It first updates the reference to the algorithm, then uses a multiplexer to select which of the remapped cmd\+\_\+vel outputs to use, either the move\+\_\+base or bug0 one. It also calls the swithcer for wall\+\_\+follow and go\+\_\+to\+\_\+point behaviour to set that behaviour (notice how they do not impact the driving mode move\+\_\+base as a planner to a goal). In the function the value of the parameter \textquotesingle{}wall\+\_\+follow\+\_\+active\textquotesingle{} is set as well, denoting if the wall follow behaviour is in act, in order to \char`\"{}mute\char`\"{} the bug0 service calls to go\+\_\+to\+\_\+point and wall\+\_\+follow in the meantime.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+drive} & (int)\+: the ID of the planning parameter to use\+:~\newline
+ 0 -\/$>$ move\+\_\+base~\newline
+ 1 -\/$>$ bug0~\newline
+ 2 -\/$>$ wall follow~\newline
+ 3 -\/$>$ stop (unused)~\newline
+\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 136 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!err\+Pos@{err\+Pos}}
+\index{err\+Pos@{err\+Pos}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{err\+Pos()}{errPos()}}]{\setlength{\rightskip}{0pt plus 5cm}double err\+Pos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a22f9e0fa6007a2b14a3624fdea36a79f}{}\label{robot__mainframe_8cpp_a22f9e0fa6007a2b14a3624fdea36a79f}
+Function computing the distance of the current robot position with respect to the target position.
+
+
+\begin{DoxyRetVals}{Return values}
+{\em err\+Pos} & (double)\+: the euclidean distance between current and target position; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 224 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!main@{main}}
+\index{main@{main}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{robot__mainframe_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 300 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!point\+Dist@{point\+Dist}}
+\index{point\+Dist@{point\+Dist}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{point\+Dist(geometry\+\_\+msgs\+::\+Point p1, geometry\+\_\+msgs\+::\+Point p2)}{pointDist(geometry_msgs::Point p1, geometry_msgs::Point p2)}}]{\setlength{\rightskip}{0pt plus 5cm}double point\+Dist (
+\begin{DoxyParamCaption}
+\item[{geometry\+\_\+msgs\+::\+Point}]{p1, }
+\item[{geometry\+\_\+msgs\+::\+Point}]{p2}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_abc0a699592177c7c3af2b98174934c54}{}\label{robot__mainframe_8cpp_abc0a699592177c7c3af2b98174934c54}
+Routine returning the distance between two points.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p1} & (geometry\+\_\+msgs\+::\+Point\&)\+: first point; \\
+\hline
+{\em p2} & (geometry\+\_\+msgs\+::\+Point\&)\+: second point; \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em point\+Dist} & (double)\+: the euclidean distance between p1 and p2; \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line 210 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!publish\+\_\+target@{publish\+\_\+target}}
+\index{publish\+\_\+target@{publish\+\_\+target}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{publish\+\_\+target()}{publish_target()}}]{\setlength{\rightskip}{0pt plus 5cm}void publish\+\_\+target (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a3b60c8b389d62783efcd7e1b683e4e2d}{}\label{robot__mainframe_8cpp_a3b60c8b389d62783efcd7e1b683e4e2d}
+Routine to publish a target position (goal), stored as a global attribute
+
+This function displays the menu with options the user can choose from. The input choice is inserted in the \textquotesingle{}response\textquotesingle{} field of the service. Note the different way the two algorithms require to indicate the goal position, with move\+\_\+base reading it from a topic (move\+\_\+base\+\_\+action\+\_\+goal) and bug0 reading it from the parameter server. 
+
+Definition at line 74 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!set\+\_\+plan\+\_\+algo@{set\+\_\+plan\+\_\+algo}}
+\index{set\+\_\+plan\+\_\+algo@{set\+\_\+plan\+\_\+algo}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{set\+\_\+plan\+\_\+algo(std\+::string new\+\_\+plan)}{set_plan_algo(std::string new_plan)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+plan\+\_\+algo (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{new\+\_\+plan}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a2472fce178d8b8316cba3b24e9551d90}{}\label{robot__mainframe_8cpp_a2472fce178d8b8316cba3b24e9551d90}
+Function that updates the reference to the planning algorithm used.
+
+The update is both local and on the value stored in the parameter server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+plan} & (std\+::string)\+: name of the algorithm, as presented in the keys of the map in the parameters; \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 102 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!simple\+Recovery@{simple\+Recovery}}
+\index{simple\+Recovery@{simple\+Recovery}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{simple\+Recovery()}{simpleRecovery()}}]{\setlength{\rightskip}{0pt plus 5cm}void simple\+Recovery (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a0fa6143039a62c14a68483337aaa5e74}{}\label{robot__mainframe_8cpp_a0fa6143039a62c14a68483337aaa5e74}
+Routine performing a trivial form of recovery behaviour.
+
+The rovot is supposed to end up in this case only when performing path planning using the \textquotesingle{}bug\+\_\+m\textquotesingle{} algorithm, since the \textquotesingle{}move\+\_\+base\textquotesingle{} already has its own (quite more thought out) way of detecting and dealing with recovery behaviours. The robot is sent back to the previous target position, considered to be safe, using \textquotesingle{}move\+\_\+base\textquotesingle{} planning (more robust than bug0). First the \textquotesingle{}bug\textquotesingle{} node needs to be restarted, in order for it to read the new target position (more on that in the documentation).
+
+Notice that the routine has the side effect of modifying the current planning algorithm to \textquotesingle{}move\+\_\+base\textquotesingle{}, even in the case it previously were \textquotesingle{}bug0\textquotesingle{}. 
+
+Definition at line 282 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!subscriber\+Callback@{subscriber\+Callback}}
+\index{subscriber\+Callback@{subscriber\+Callback}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{subscriber\+Callback(const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&pose\+\_\+msg)}{subscriberCallback(const nav_msgs::Odometry::ConstPtr &pose_msg)}}]{\setlength{\rightskip}{0pt plus 5cm}void subscriber\+Callback (
+\begin{DoxyParamCaption}
+\item[{const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr \&}]{pose\+\_\+msg}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_aef70658f8ec02213922917e67d9e1c76}{}\label{robot__mainframe_8cpp_aef70658f8ec02213922917e67d9e1c76}
+Callback executed every time a message on topic /odom is published, updating the current robot position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pose\+\_\+msg} & (const nav\+\_\+msgs\+::\+Odometry\+::\+Const\+Ptr\&)\+: content of the message read; \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 193 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!target\+Reached\+Callback@{target\+Reached\+Callback}}
+\index{target\+Reached\+Callback@{target\+Reached\+Callback}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+Reached\+Callback(const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)}{targetReachedCallback(const std_msgs::Empty::ConstPtr &empty)}}]{\setlength{\rightskip}{0pt plus 5cm}void target\+Reached\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&}]{empty}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}{}\label{robot__mainframe_8cpp_a31f8568d3564a1e7f0c6c914e5f6c684}
+Callback executed every time a message on topic /target\+\_\+reached is published.
+
+The global variable \+\_\+target\+\_\+reached is set to \textquotesingle{}true\textquotesingle{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em empty} & (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr\&)\+: reference to empty message (unused); \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 239 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!target\+Unreachable\+Callback@{target\+Unreachable\+Callback}}
+\index{target\+Unreachable\+Callback@{target\+Unreachable\+Callback}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+Unreachable\+Callback(const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&empty)}{targetUnreachableCallback(const std_msgs::Empty::ConstPtr &empty)}}]{\setlength{\rightskip}{0pt plus 5cm}void target\+Unreachable\+Callback (
+\begin{DoxyParamCaption}
+\item[{const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr \&}]{empty}
+\end{DoxyParamCaption}
+)}\hypertarget{robot__mainframe_8cpp_a37adf3f429c75bdd9e954bcc654ff9cf}{}\label{robot__mainframe_8cpp_a37adf3f429c75bdd9e954bcc654ff9cf}
+Callback executed every time a message on topic /target\+\_\+unreachable is published.
+
+The global variable \+\_\+target\+\_\+unreachable is set to \textquotesingle{}true\textquotesingle{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em empty} & (const std\+\_\+msgs\+::\+Empty\+::\+Const\+Ptr\&)\+: reference to empty message, unused; \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 254 of file robot\+\_\+mainframe.\+cpp.
+
+
+
+\subsection{Variable Documentation}
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!\+\_\+target\+\_\+reached@{\+\_\+target\+\_\+reached}}
+\index{\+\_\+target\+\_\+reached@{\+\_\+target\+\_\+reached}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{\+\_\+target\+\_\+reached}{_target_reached}}]{\setlength{\rightskip}{0pt plus 5cm}bool \+\_\+target\+\_\+reached = false}\hypertarget{robot__mainframe_8cpp_a9f439efb1f4e7a1926c6401ccddff832}{}\label{robot__mainframe_8cpp_a9f439efb1f4e7a1926c6401ccddff832}
+
+
+Definition at line 47 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!\+\_\+target\+\_\+unreachable@{\+\_\+target\+\_\+unreachable}}
+\index{\+\_\+target\+\_\+unreachable@{\+\_\+target\+\_\+unreachable}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{\+\_\+target\+\_\+unreachable}{_target_unreachable}}]{\setlength{\rightskip}{0pt plus 5cm}bool \+\_\+target\+\_\+unreachable = false}\hypertarget{robot__mainframe_8cpp_a1bab851596373a463137c571cb67701a}{}\label{robot__mainframe_8cpp_a1bab851596373a463137c571cb67701a}
+
+
+Definition at line 48 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+bug\+\_\+restart@{client\+\_\+bug\+\_\+restart}}
+\index{client\+\_\+bug\+\_\+restart@{client\+\_\+bug\+\_\+restart}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+bug\+\_\+restart}{client_bug_restart}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+bug\+\_\+restart}\hypertarget{robot__mainframe_8cpp_a573f2b2cd613634bf9569cb4edee635b}{}\label{robot__mainframe_8cpp_a573f2b2cd613634bf9569cb4edee635b}
+Used to call a rospy script using \textquotesingle{}roslaunch\textquotesingle{} A\+PI to restart \textquotesingle{}bug\textquotesingle{} node 
+
+Definition at line 38 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+go\+\_\+to\+\_\+point@{client\+\_\+go\+\_\+to\+\_\+point}}
+\index{client\+\_\+go\+\_\+to\+\_\+point@{client\+\_\+go\+\_\+to\+\_\+point}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+go\+\_\+to\+\_\+point}{client_go_to_point}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+go\+\_\+to\+\_\+point}\hypertarget{robot__mainframe_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}{}\label{robot__mainframe_8cpp_a737051118f7d0a3c2e19f6fdf141bc5c}
+Service client enabling go to point directly 
+
+Definition at line 33 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+target\+\_\+rand@{client\+\_\+target\+\_\+rand}}
+\index{client\+\_\+target\+\_\+rand@{client\+\_\+target\+\_\+rand}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+target\+\_\+rand}{client_target_rand}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+target\+\_\+rand}\hypertarget{robot__mainframe_8cpp_ace4c6dd9534eca46f1394c5f907eb16e}{}\label{robot__mainframe_8cpp_ace4c6dd9534eca46f1394c5f907eb16e}
+Service client used for obtaining random target positions 
+
+Definition at line 29 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+target\+\_\+user@{client\+\_\+target\+\_\+user}}
+\index{client\+\_\+target\+\_\+user@{client\+\_\+target\+\_\+user}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+target\+\_\+user}{client_target_user}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+target\+\_\+user}\hypertarget{robot__mainframe_8cpp_a2d4e87f28bbd1024471c7f1b942af5b6}{}\label{robot__mainframe_8cpp_a2d4e87f28bbd1024471c7f1b942af5b6}
+Service client used for obtaining user defined target positions 
+
+Definition at line 30 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+ui\+\_\+menu@{client\+\_\+ui\+\_\+menu}}
+\index{client\+\_\+ui\+\_\+menu@{client\+\_\+ui\+\_\+menu}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+ui\+\_\+menu}{client_ui_menu}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+ui\+\_\+menu}\hypertarget{robot__mainframe_8cpp_a14800b5845bc3d2c933cf629be687a5f}{}\label{robot__mainframe_8cpp_a14800b5845bc3d2c933cf629be687a5f}
+Service client used to communicate with the UI 
+
+Definition at line 35 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+\+U\+I\+\_\+shutdown@{client\+\_\+\+U\+I\+\_\+shutdown}}
+\index{client\+\_\+\+U\+I\+\_\+shutdown@{client\+\_\+\+U\+I\+\_\+shutdown}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+\+U\+I\+\_\+shutdown}{client_UI_shutdown}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+\+U\+I\+\_\+shutdown}\hypertarget{robot__mainframe_8cpp_a44a43af3f57698df849e9b8452e9de12}{}\label{robot__mainframe_8cpp_a44a43af3f57698df849e9b8452e9de12}
+Used to inform the \textquotesingle{}user\+\_\+interface\textquotesingle{} node of this node shutting down 
+
+Definition at line 39 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!client\+\_\+wall\+\_\+follow@{client\+\_\+wall\+\_\+follow}}
+\index{client\+\_\+wall\+\_\+follow@{client\+\_\+wall\+\_\+follow}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{client\+\_\+wall\+\_\+follow}{client_wall_follow}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client client\+\_\+wall\+\_\+follow}\hypertarget{robot__mainframe_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}{}\label{robot__mainframe_8cpp_a4c4ee4ef916ee4c730110f9ab2e4e20e}
+Service client enabling wall follow directly 
+
+Definition at line 34 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!current\+\_\+position@{current\+\_\+position}}
+\index{current\+\_\+position@{current\+\_\+position}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{current\+\_\+position}{current_position}}]{\setlength{\rightskip}{0pt plus 5cm}geometry\+\_\+msgs\+::\+Point current\+\_\+position}\hypertarget{robot__mainframe_8cpp_ae9cfb31b126881b1d7231471ba3a5e8f}{}\label{robot__mainframe_8cpp_ae9cfb31b126881b1d7231471ba3a5e8f}
+Current position of the robot, defined as a Point 
+
+Definition at line 43 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!drive\+\_\+algo@{drive\+\_\+algo}}
+\index{drive\+\_\+algo@{drive\+\_\+algo}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{drive\+\_\+algo}{drive_algo}}]{\setlength{\rightskip}{0pt plus 5cm}int drive\+\_\+algo = {\bf M\+O\+V\+E\+\_\+\+B\+A\+S\+E\+\_\+\+D\+R\+I\+VE}}\hypertarget{robot__mainframe_8cpp_a82510f2ac271f2c705871ad806bcdf4f}{}\label{robot__mainframe_8cpp_a82510f2ac271f2c705871ad806bcdf4f}
+
+
+Definition at line 45 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!mux\+\_\+cmd\+\_\+vel@{mux\+\_\+cmd\+\_\+vel}}
+\index{mux\+\_\+cmd\+\_\+vel@{mux\+\_\+cmd\+\_\+vel}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{mux\+\_\+cmd\+\_\+vel}{mux_cmd_vel}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Service\+Client mux\+\_\+cmd\+\_\+vel}\hypertarget{robot__mainframe_8cpp_ab50bd61ee51d7d0fafe324fb17dec49b}{}\label{robot__mainframe_8cpp_ab50bd61ee51d7d0fafe324fb17dec49b}
+Allowing for multiplexing between multiple robot driving sources 
+
+Definition at line 37 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!plan\+\_\+algo\+\_\+map@{plan\+\_\+algo\+\_\+map}}
+\index{plan\+\_\+algo\+\_\+map@{plan\+\_\+algo\+\_\+map}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+map}{plan_algo_map}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$std\+::string, int$>$ plan\+\_\+algo\+\_\+map}\hypertarget{robot__mainframe_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}{}\label{robot__mainframe_8cpp_ae75b58e567c6e88e318fc023b7d6f16a}
+Map of the available planning alogorithms \char`\"{}name\char`\"{}\+:ID, retrieved from parameter server 
+
+Definition at line 50 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!plan\+\_\+algo\+\_\+map\+\_\+it@{plan\+\_\+algo\+\_\+map\+\_\+it}}
+\index{plan\+\_\+algo\+\_\+map\+\_\+it@{plan\+\_\+algo\+\_\+map\+\_\+it}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+map\+\_\+it}{plan_algo_map_it}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$std\+::string, int$>$\+::iterator plan\+\_\+algo\+\_\+map\+\_\+it}\hypertarget{robot__mainframe_8cpp_a2db8520b5159efb77d60c4aa05256e4f}{}\label{robot__mainframe_8cpp_a2db8520b5159efb77d60c4aa05256e4f}
+Iterator moving on the planning algorithms map 
+
+Definition at line 52 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}}
+\index{plan\+\_\+algo\+\_\+used@{plan\+\_\+algo\+\_\+used}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{plan\+\_\+algo\+\_\+used}{plan_algo_used}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string plan\+\_\+algo\+\_\+used}\hypertarget{robot__mainframe_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}{}\label{robot__mainframe_8cpp_ab8dd3a3af5e9b44db344028e62f347a5}
+Name of the planning algorithm used 
+
+Definition at line 53 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!previous\+\_\+target\+\_\+position@{previous\+\_\+target\+\_\+position}}
+\index{previous\+\_\+target\+\_\+position@{previous\+\_\+target\+\_\+position}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{previous\+\_\+target\+\_\+position}{previous_target_position}}]{\setlength{\rightskip}{0pt plus 5cm}geometry\+\_\+msgs\+::\+Point previous\+\_\+target\+\_\+position}\hypertarget{robot__mainframe_8cpp_ad21dac7011f1455d5563308d8a79a904}{}\label{robot__mainframe_8cpp_ad21dac7011f1455d5563308d8a79a904}
+Target position to reach, defined as a Point 
+
+Definition at line 42 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!pub@{pub}}
+\index{pub@{pub}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{pub}{pub}}]{\setlength{\rightskip}{0pt plus 5cm}ros\+::\+Publisher pub}\hypertarget{robot__mainframe_8cpp_a350594df3e8f6948c8462edfd41ce086}{}\label{robot__mainframe_8cpp_a350594df3e8f6948c8462edfd41ce086}
+Publisher used to publish velocities 
+
+Definition at line 31 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!state\+\_\+@{state\+\_\+}}
+\index{state\+\_\+@{state\+\_\+}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{state\+\_\+}{state_}}]{\setlength{\rightskip}{0pt plus 5cm}char state\+\_\+ = {\bf S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}}\hypertarget{robot__mainframe_8cpp_ae7d20aa21d8d1363f5ef8096f59b4d8e}{}\label{robot__mainframe_8cpp_ae7d20aa21d8d1363f5ef8096f59b4d8e}
+
+
+Definition at line 46 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!target\+\_\+position@{target\+\_\+position}}
+\index{target\+\_\+position@{target\+\_\+position}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+position}{target_position}}]{\setlength{\rightskip}{0pt plus 5cm}geometry\+\_\+msgs\+::\+Point target\+\_\+position}\hypertarget{robot__mainframe_8cpp_a780203c5a5ca66149d83069dd42bc535}{}\label{robot__mainframe_8cpp_a780203c5a5ca66149d83069dd42bc535}
+Target position to reach, defined as a Point 
+
+Definition at line 41 of file robot\+\_\+mainframe.\+cpp.
+
+\index{robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}!target\+\_\+srv@{target\+\_\+srv}}
+\index{target\+\_\+srv@{target\+\_\+srv}!robot\+\_\+mainframe.\+cpp@{robot\+\_\+mainframe.\+cpp}}
+\subsubsection[{\texorpdfstring{target\+\_\+srv}{target_srv}}]{\setlength{\rightskip}{0pt plus 5cm}nonholo\+\_\+control\+::\+Target\+Pos target\+\_\+srv}\hypertarget{robot__mainframe_8cpp_a415fc86ef11fed4538200e24d7cc4e4c}{}\label{robot__mainframe_8cpp_a415fc86ef11fed4538200e24d7cc4e4c}
+This is the main node in the package, the one which runs and coordinates (almost) all the others, responsible for dictating which of the available planning algorithm drives the robot toward the received goal. Notice that this node actually does minimal computing, while delegating the various tasks to other nodes.\+Service entityy where target position will be inserted into by one of the appropriate services 
+
+Definition at line 28 of file robot\+\_\+mainframe.\+cpp.
+
